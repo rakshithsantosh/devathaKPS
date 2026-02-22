@@ -13,6 +13,10 @@ export const metadata: Metadata = {
     "sustainable school",
     "government school",
   ],
+  icons: {
+    icon: "/images/logo.jpg",
+    apple: "/images/logo.jpg",
+  },
 };
 
 export default function RootLayout({

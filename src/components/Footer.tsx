@@ -1,6 +1,7 @@
 "use client";
 
-import { GraduationCap, Instagram, Facebook, Mail, Phone, MapPin } from "lucide-react";
+import { Instagram, Facebook, Mail, Phone, MapPin } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
     return (
@@ -17,14 +18,23 @@ export default function Footer() {
                 >
                     <div
                         style={{
-                            backgroundColor: "#C65A3A",
-                            padding: 14,
-                            borderRadius: 16,
+                            width: 72,
+                            height: 72,
+                            borderRadius: 18,
+                            overflow: "hidden",
+                            position: "relative",
                             marginBottom: 24,
-                            boxShadow: "0 4px 20px rgba(198, 90, 58, 0.3)",
+                            border: "1px solid rgba(244, 232, 220, 0.1)",
+                            boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
                         }}
                     >
-                        <GraduationCap style={{ color: "#FFFFFF", width: 28, height: 28 }} />
+                        <Image
+                            src="/images/logo.jpg"
+                            alt="Devatha KPS Logo"
+                            fill
+                            className="object-cover"
+                            quality={90}
+                        />
                     </div>
                     <h2
                         style={{

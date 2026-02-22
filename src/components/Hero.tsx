@@ -12,17 +12,20 @@ export default function Hero() {
         offset: ["start start", "end start"],
     });
 
-    const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+    /* ── 3-layer parallax speeds ── */
+    const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);       // Layer 1 – bg image
+    const overlayY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);   // Layer 2 – light wash
+    const fadeOut = useTransform(scrollYProgress, [0, 0.6], [1, 0]);         // Content fade on scroll
 
     return (
         <section
             ref={containerRef}
             className="relative min-h-screen flex items-center overflow-hidden"
         >
-            {/* Parallax Background Image */}
+            {/* ─── LAYER 1: Background Image (0.6x scroll) ─── */}
             <motion.div
                 style={{ y: bgY }}
-                className="absolute -top-[20%] left-0 right-0 h-[130%] z-0"
+                className="absolute -top-[15%] left-0 right-0 h-[125%]"
             >
                 <Image
                     src="/images/hero.png"
@@ -32,38 +35,85 @@ export default function Hero() {
                     priority
                     quality={90}
                 />
+                {/* Warm color-grade: lets natural sunlight through */}
+                <div
+                    style={{
+                        position: "absolute",
+                        inset: 0,
+                        background:
+                            "linear-gradient(180deg, rgba(62,42,35,0.18) 0%, rgba(198,90,58,0.08) 40%, rgba(244,232,220,0.06) 100%)",
+                        mixBlendMode: "multiply",
+                    }}
+                />
             </motion.div>
 
-            {/* Dark gradient overlays for text readability */}
-            <div
-                className="absolute inset-0 z-10"
-                style={{
-                    background:
-                        "linear-gradient(to right, rgba(20,12,8,0.88) 0%, rgba(40,25,18,0.65) 50%, rgba(40,25,18,0.3) 100%)",
-                }}
-            />
-            <div
-                className="absolute inset-0 z-10"
-                style={{
-                    background:
-                        "linear-gradient(to top, rgba(20,12,8,0.5) 0%, transparent 40%, rgba(20,12,8,0.25) 100%)",
-                }}
-            />
+            {/* ─── LAYER 2: Light / atmosphere overlay (0.8x scroll) ─── */}
+            <motion.div
+                style={{ y: overlayY }}
+                className="absolute inset-0"
+            >
+                {/* Directional light — softens left, reveals right */}
+                <div
+                    style={{
+                        position: "absolute",
+                        inset: 0,
+                        background:
+                            "linear-gradient(105deg, rgba(30,20,14,0.52) 0%, rgba(30,20,14,0.30) 38%, rgba(255,248,240,0.04) 65%, rgba(255,248,240,0.10) 100%)",
+                    }}
+                />
+                {/* Very subtle top vignette for navbar contrast */}
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: 160,
+                        background:
+                            "linear-gradient(to bottom, rgba(20,14,10,0.35) 0%, transparent 100%)",
+                    }}
+                />
+            </motion.div>
 
-            {/* Content */}
-            <div className="relative z-20 w-full max-w-7xl mx-auto px-8 md:px-16 lg:px-20">
+            {/* ─── LAYER 3: Content (static, with fade-on-scroll) ─── */}
+            <motion.div
+                style={{ opacity: fadeOut }}
+                className="relative z-20 w-full max-w-7xl mx-auto px-8 md:px-16 lg:px-20"
+            >
                 <div className="max-w-2xl pt-24">
+                    {/* Glass text backing — anchors left content compositionally */}
+                    <div
+                        style={{
+                            position: "absolute",
+                            top: 64,
+                            left: -32,
+                            bottom: 32,
+                            width: "calc(100% + 64px)",
+                            background:
+                                "linear-gradient(135deg, rgba(30,20,14,0.12) 0%, rgba(30,20,14,0.04) 60%, transparent 100%)",
+                            borderRadius: 32,
+                            backdropFilter: "blur(0.5px)",
+                            pointerEvents: "none",
+                        }}
+                    />
+
                     {/* Label */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                        className="flex items-center gap-3 mb-10"
+                        transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 12,
+                            marginBottom: 40,
+                            position: "relative",
+                        }}
                     >
-                        <div style={{ width: 32, height: 1, backgroundColor: "#C65A3A" }} />
+                        <div style={{ width: 32, height: 1, backgroundColor: "rgba(198, 90, 58, 0.7)" }} />
                         <span
                             style={{
-                                color: "#C65A3A",
+                                color: "rgba(198, 90, 58, 0.85)",
                                 fontFamily: "'Inter', sans-serif",
                                 fontWeight: 600,
                                 fontSize: 11,
@@ -79,15 +129,17 @@ export default function Hero() {
                     <motion.h1
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.5 }}
+                        transition={{ duration: 0.9, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
                         style={{
                             fontFamily: "'Playfair Display', serif",
                             fontWeight: 700,
                             color: "#FFFFFF",
                             lineHeight: 1.08,
-                            fontSize: "clamp(2.5rem, 6vw, 5rem)",
+                            fontSize: "clamp(2.5rem, 5.5vw, 4.5rem)",
                             letterSpacing: "-0.02em",
-                            marginBottom: 32,
+                            marginBottom: 28,
+                            position: "relative",
+                            textShadow: "0 2px 20px rgba(20,14,10,0.15)",
                         }}
                     >
                         A New Era of
@@ -97,7 +149,7 @@ export default function Hero() {
                             style={{
                                 fontWeight: 400,
                                 fontStyle: "italic",
-                                color: "rgba(244, 232, 220, 0.75)",
+                                color: "rgba(255, 252, 245, 0.65)",
                             }}
                         >
                             in Rampura
@@ -108,15 +160,16 @@ export default function Hero() {
                     <motion.p
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.7 }}
+                        transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
                         style={{
-                            color: "rgba(244, 232, 220, 0.6)",
+                            color: "rgba(255, 252, 245, 0.55)",
                             fontFamily: "'Inter', sans-serif",
                             fontWeight: 300,
-                            fontSize: "clamp(1rem, 2vw, 1.25rem)",
-                            lineHeight: 1.7,
-                            maxWidth: 440,
-                            marginBottom: 56,
+                            fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
+                            lineHeight: 1.75,
+                            maxWidth: 420,
+                            marginBottom: 48,
+                            position: "relative",
                         }}
                     >
                         Modern, sustainable education rooted in community values and
@@ -127,8 +180,9 @@ export default function Hero() {
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.9 }}
+                        transition={{ duration: 0.8, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
                         className="flex flex-col sm:flex-row gap-4"
+                        style={{ position: "relative" }}
                     >
                         <a
                             href="#story"
@@ -138,24 +192,24 @@ export default function Hero() {
                                 justifyContent: "center",
                                 backgroundColor: "#C65A3A",
                                 color: "#FFFFFF",
-                                padding: "16px 36px",
+                                padding: "15px 34px",
                                 borderRadius: 9999,
-                                fontSize: 15,
+                                fontSize: 14,
                                 fontWeight: 600,
                                 fontFamily: "'Inter', sans-serif",
                                 textDecoration: "none",
-                                boxShadow: "0 4px 24px rgba(198, 90, 58, 0.4)",
-                                transition: "all 0.3s ease",
+                                boxShadow: "0 2px 16px rgba(198, 90, 58, 0.25)",
+                                transition: "all 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = "#b14f30";
-                                e.currentTarget.style.transform = "translateY(-2px)";
-                                e.currentTarget.style.boxShadow = "0 8px 30px rgba(198, 90, 58, 0.5)";
+                                e.currentTarget.style.backgroundColor = "#b8523c";
+                                e.currentTarget.style.transform = "translateY(-1px)";
+                                e.currentTarget.style.boxShadow = "0 4px 24px rgba(198, 90, 58, 0.35)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.backgroundColor = "#C65A3A";
                                 e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.boxShadow = "0 4px 24px rgba(198, 90, 58, 0.4)";
+                                e.currentTarget.style.boxShadow = "0 2px 16px rgba(198, 90, 58, 0.25)";
                             }}
                         >
                             Explore Our Campus
@@ -166,45 +220,45 @@ export default function Hero() {
                                 display: "inline-flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                border: "1px solid rgba(255,255,255,0.25)",
-                                color: "rgba(255,255,255,0.9)",
-                                padding: "16px 36px",
+                                border: "1px solid rgba(255,255,255,0.22)",
+                                color: "rgba(255,255,255,0.85)",
+                                padding: "15px 34px",
                                 borderRadius: 9999,
-                                fontSize: 15,
-                                fontWeight: 600,
+                                fontSize: 14,
+                                fontWeight: 500,
                                 fontFamily: "'Inter', sans-serif",
                                 textDecoration: "none",
-                                backdropFilter: "blur(8px)",
-                                transition: "all 0.3s ease",
+                                backdropFilter: "blur(6px)",
+                                transition: "all 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.1)";
-                                e.currentTarget.style.borderColor = "rgba(255,255,255,0.4)";
+                                e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.08)";
+                                e.currentTarget.style.borderColor = "rgba(255,255,255,0.35)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.backgroundColor = "transparent";
-                                e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)";
+                                e.currentTarget.style.borderColor = "rgba(255,255,255,0.22)";
                             }}
                         >
                             Admissions Open
                         </a>
                     </motion.div>
                 </div>
-            </div>
+            </motion.div>
 
-            {/* Scroll indicator */}
+            {/* ─── Scroll indicator ─── */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 1 }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
+                transition={{ delay: 1.8, duration: 1.2 }}
+                className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
             >
                 <span
                     style={{
-                        color: "rgba(255,255,255,0.3)",
-                        fontSize: 10,
+                        color: "rgba(255,255,255,0.25)",
+                        fontSize: 9,
                         textTransform: "uppercase" as const,
-                        letterSpacing: "0.3em",
+                        letterSpacing: "0.35em",
                         fontWeight: 500,
                         fontFamily: "'Inter', sans-serif",
                     }}
@@ -212,18 +266,20 @@ export default function Hero() {
                     Scroll
                 </span>
                 <motion.div
-                    animate={{ y: [0, 8, 0] }}
-                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                    animate={{ y: [0, 6, 0] }}
+                    transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
                 >
-                    <ArrowDown style={{ width: 16, height: 16, color: "rgba(255,255,255,0.3)" }} />
+                    <ArrowDown style={{ width: 14, height: 14, color: "rgba(255,255,255,0.2)" }} />
                 </motion.div>
             </motion.div>
 
-            {/* Bottom gradient into next section */}
+            {/* ─── Bottom transition: subtle, architectural ─── */}
             <div
-                className="absolute bottom-0 left-0 right-0 h-40 z-20"
+                className="absolute bottom-0 left-0 right-0 z-20"
                 style={{
-                    background: "linear-gradient(to top, #FAF6F1 0%, transparent 100%)",
+                    height: 120,
+                    background:
+                        "linear-gradient(to top, rgba(250, 246, 241, 0.12) 0%, transparent 100%)",
                 }}
             />
         </section>

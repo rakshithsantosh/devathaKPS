@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function Admissions() {
     return (
@@ -93,9 +93,9 @@ export default function Admissions() {
                         Extension to Grade 10 in Progress
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <div style={{ display: "flex", justifyContent: "center" }}>
                         <a
-                            href="#"
+                            href="/contact"
                             style={{
                                 display: "inline-flex",
                                 alignItems: "center",
@@ -121,38 +121,8 @@ export default function Admissions() {
                                 e.currentTarget.style.transform = "translateY(0)";
                             }}
                         >
-                            Apply Now
+                            Contact Us
                             <ArrowRight style={{ width: 16, height: 16 }} />
-                        </a>
-                        <a
-                            href="#"
-                            style={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                gap: 10,
-                                border: "1px solid rgba(244, 232, 220, 0.2)",
-                                color: "rgba(244, 232, 220, 0.8)",
-                                padding: "16px 40px",
-                                borderRadius: 9999,
-                                fontSize: 15,
-                                fontWeight: 600,
-                                fontFamily: "'Inter', sans-serif",
-                                textDecoration: "none",
-                                backdropFilter: "blur(8px)",
-                                transition: "all 0.3s ease",
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = "rgba(244, 232, 220, 0.1)";
-                                e.currentTarget.style.borderColor = "rgba(244, 232, 220, 0.35)";
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.backgroundColor = "transparent";
-                                e.currentTarget.style.borderColor = "rgba(244, 232, 220, 0.2)";
-                            }}
-                        >
-                            <Calendar style={{ width: 16, height: 16 }} />
-                            Schedule a Visit
                         </a>
                     </div>
                 </motion.div>
