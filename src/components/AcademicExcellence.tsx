@@ -1,0 +1,181 @@
+"use client";
+
+import { motion } from "framer-motion";
+import {
+    BookOpen,
+    FlaskConical,
+    Monitor,
+    Library,
+    MessageCircle,
+    GraduationCap,
+} from "lucide-react";
+
+const programs = [
+    {
+        icon: BookOpen,
+        title: "English Medium Instruction",
+        desc: "Building confidence and global readiness through strong linguistic foundations from Grade 1.",
+    },
+    {
+        icon: FlaskConical,
+        title: "Science Laboratory",
+        desc: "Hands-on practical discovery and scientific exploration for curious young minds.",
+    },
+    {
+        icon: Monitor,
+        title: "Computer Lab",
+        desc: "Digital literacy as a core skill, preparing students for the modern technological era.",
+    },
+    {
+        icon: Library,
+        title: "Library & Reading Room",
+        desc: "A quiet, curated space for reading, research, and expanding intellectual horizons.",
+    },
+    {
+        icon: MessageCircle,
+        title: "Spoken English",
+        desc: "Dedicated sessions to enhance communication, presentation, and interpersonal skills.",
+    },
+    {
+        icon: GraduationCap,
+        title: "Expanding to Grade 10",
+        desc: "Extension to 10th Standard in progress — serving the growing educational needs of Rampura.",
+        highlight: true,
+    },
+];
+
+export default function AcademicExcellence() {
+    return (
+        <section id="academics" style={{ padding: "112px 0 128px", backgroundColor: "#FAF6F1" }}>
+            <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 48px" }}>
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-8" style={{ marginBottom: 80 }}>
+                    <div>
+                        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+                            <div style={{ width: 32, height: 1, backgroundColor: "#C65A3A" }} />
+                            <span
+                                style={{
+                                    color: "#C65A3A",
+                                    fontFamily: "'Inter', sans-serif",
+                                    fontWeight: 600,
+                                    fontSize: 11,
+                                    letterSpacing: "0.3em",
+                                    textTransform: "uppercase" as const,
+                                }}
+                            >
+                                Academic Programs
+                            </span>
+                        </div>
+                        <h2
+                            style={{
+                                fontFamily: "'Playfair Display', serif",
+                                fontWeight: 700,
+                                color: "#3E2A23",
+                                fontSize: "clamp(2rem, 4vw, 3.2rem)",
+                                lineHeight: 1.15,
+                                margin: 0,
+                            }}
+                        >
+                            Academic{" "}
+                            <span style={{ fontWeight: 400, color: "rgba(62, 42, 35, 0.45)" }}>
+                                Excellence
+                            </span>
+                        </h2>
+                    </div>
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        style={{
+                            backgroundColor: "#FFFFFF",
+                            padding: "14px 24px",
+                            borderRadius: 16,
+                            boxShadow: "0 2px 16px rgba(62, 42, 35, 0.06)",
+                            border: "1px solid #F0E4D8",
+                        }}
+                    >
+                        <span
+                            style={{
+                                fontFamily: "'Inter', sans-serif",
+                                color: "#3E2A23",
+                                fontWeight: 600,
+                                fontSize: 13,
+                                letterSpacing: "0.02em",
+                            }}
+                        >
+                            Classes 1 – 5 &bull; English Medium
+                        </span>
+                    </motion.div>
+                </div>
+
+                {/* 2x3 Grid */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {programs.map((item, i) => {
+                        const Icon = item.icon;
+                        const isHighlight = "highlight" in item && item.highlight;
+                        return (
+                            <motion.div
+                                key={item.title}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: i * 0.08 }}
+                                viewport={{ once: true }}
+                                style={{
+                                    padding: 32,
+                                    borderRadius: 20,
+                                    border: isHighlight ? "none" : "1px solid #F0E4D8",
+                                    backgroundColor: isHighlight ? "#C65A3A" : "#FFFFFF",
+                                    boxShadow: isHighlight
+                                        ? "0 8px 32px rgba(198, 90, 58, 0.25)"
+                                        : "0 2px 12px rgba(62, 42, 35, 0.04)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "default",
+                                }}
+                                className={isHighlight ? "" : "hover:shadow-xl hover:-translate-y-1.5"}
+                            >
+                                <div
+                                    style={{
+                                        width: 44,
+                                        height: 44,
+                                        borderRadius: 14,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        backgroundColor: isHighlight ? "rgba(255,255,255,0.2)" : "rgba(244, 232, 220, 0.6)",
+                                        color: isHighlight ? "#FFFFFF" : "#3E2A23",
+                                        marginBottom: 24,
+                                    }}
+                                >
+                                    <Icon style={{ width: 20, height: 20 }} />
+                                </div>
+                                <h3
+                                    style={{
+                                        fontFamily: "'Playfair Display', serif",
+                                        fontWeight: 700,
+                                        color: isHighlight ? "#FFFFFF" : "#3E2A23",
+                                        fontSize: 18,
+                                        lineHeight: 1.35,
+                                        marginBottom: 12,
+                                    }}
+                                >
+                                    {item.title}
+                                </h3>
+                                <p
+                                    style={{
+                                        fontFamily: "'Inter', sans-serif",
+                                        color: isHighlight ? "rgba(255,255,255,0.8)" : "#7B736C",
+                                        fontSize: 14,
+                                        lineHeight: 1.7,
+                                        margin: 0,
+                                    }}
+                                >
+                                    {item.desc}
+                                </p>
+                            </motion.div>
+                        );
+                    })}
+                </div>
+            </div>
+        </section>
+    );
+}
