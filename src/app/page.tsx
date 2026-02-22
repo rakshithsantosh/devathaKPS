@@ -4,6 +4,7 @@ import Story from "@/components/Story";
 import Sustainability from "@/components/Sustainability";
 import AcademicExcellence from "@/components/AcademicExcellence";
 import HolisticDevelopment from "@/components/HolisticDevelopment";
+import CulturalValues from "@/components/CulturalValues";
 import FoundationYears from "@/components/FoundationYears";
 import Community from "@/components/Community";
 import Admissions from "@/components/Admissions";
@@ -18,6 +19,7 @@ export default function Home() {
       <Sustainability />
       <AcademicExcellence />
       <HolisticDevelopment />
+      <CulturalValues />
       <FoundationYears />
       <Community />
       <Admissions />

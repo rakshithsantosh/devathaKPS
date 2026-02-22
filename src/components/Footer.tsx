@@ -1,6 +1,6 @@
 "use client";
 
-import { Instagram, Facebook, Mail, Phone, MapPin } from "lucide-react";
+import { Instagram, Facebook, MapPin } from "lucide-react";
 import Image from "next/image";
 
 export default function Footer() {
@@ -99,11 +99,11 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* 3-column info */}
+                {/* 2-column info */}
                 <div
-                    className="grid grid-cols-1 md:grid-cols-3 gap-12"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-12"
                     style={{
-                        maxWidth: 900,
+                        maxWidth: 700,
                         margin: "0 auto 64px",
                         textAlign: "center",
                         borderTop: "1px solid rgba(244, 232, 220, 0.08)",
@@ -111,31 +111,6 @@ export default function Footer() {
                         padding: "48px 0",
                     }}
                 >
-                    <div>
-                        <h4
-                            style={{
-                                color: "#C65A3A",
-                                fontFamily: "'Inter', sans-serif",
-                                fontWeight: 600,
-                                fontSize: 10,
-                                textTransform: "uppercase" as const,
-                                letterSpacing: "0.2em",
-                                marginBottom: 20,
-                            }}
-                        >
-                            Contact
-                        </h4>
-                        <div style={{ display: "flex", flexDirection: "column", gap: 10, alignItems: "center" }}>
-                            <p style={{ color: "rgba(244, 232, 220, 0.45)", fontSize: 14, fontWeight: 300, fontFamily: "'Inter', sans-serif", display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
-                                <Phone style={{ width: 14, height: 14 }} />
-                                +91 91234 56789
-                            </p>
-                            <p style={{ color: "rgba(244, 232, 220, 0.45)", fontSize: 14, fontWeight: 300, fontFamily: "'Inter', sans-serif", display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
-                                <Mail style={{ width: 14, height: 14 }} />
-                                contact@devathakps.edu.in
-                            </p>
-                        </div>
-                    </div>
                     <div>
                         <h4
                             style={{

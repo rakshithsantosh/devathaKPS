@@ -132,21 +132,24 @@ export default function Navbar() {
                                 fontFamily: "'Inter', sans-serif",
                                 fontWeight: 500,
                                 color: scrolled
-                                    ? "rgba(244, 232, 220, 0.7)"
-                                    : "rgba(255,255,255,0.75)",
+                                    ? "rgba(244, 232, 220, 0.75)"
+                                    : "rgba(255,255,255,0.88)",
                                 fontSize: 13,
                                 textDecoration: "none",
-                                letterSpacing: "0.01em",
+                                letterSpacing: "0.06em",
                                 transition: "color 0.3s ease",
                                 position: "relative",
+                                textShadow: scrolled
+                                    ? "none"
+                                    : "0 1px 3px rgba(0,0,0,0.25)",
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.color = "#FFFFFF";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.color = scrolled
-                                    ? "rgba(244, 232, 220, 0.7)"
-                                    : "rgba(255,255,255,0.75)";
+                                    ? "rgba(244, 232, 220, 0.75)"
+                                    : "rgba(255,255,255,0.88)";
                             }}
                         >
                             {link.label}

@@ -61,16 +61,16 @@ export default function Hero() {
                             "linear-gradient(105deg, rgba(30,20,14,0.52) 0%, rgba(30,20,14,0.30) 38%, rgba(255,248,240,0.04) 65%, rgba(255,248,240,0.10) 100%)",
                     }}
                 />
-                {/* Very subtle top vignette for navbar contrast */}
+                {/* Contrast beam for navbar readability */}
                 <div
                     style={{
                         position: "absolute",
                         top: 0,
                         left: 0,
                         right: 0,
-                        height: 160,
+                        height: 140,
                         background:
-                            "linear-gradient(to bottom, rgba(20,14,10,0.35) 0%, transparent 100%)",
+                            "linear-gradient(to bottom, rgba(15,10,6,0.50) 0%, rgba(20,14,10,0.30) 50%, transparent 100%)",
                     }}
                 />
             </motion.div>
