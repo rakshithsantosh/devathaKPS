@@ -78,7 +78,7 @@ export default function Admissions() {
                             marginBottom: 12,
                         }}
                     >
-                        Grades 1 to 5 — English Medium
+                        Grades 1 to 5 - English Medium
                     </p>
                     <p
                         style={{

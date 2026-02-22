@@ -105,7 +105,7 @@ export default function Community() {
                             marginBottom: 28,
                         }}
                     >
-                        Devatha KPS is more than a school — it is the heartbeat of
+                        Devatha KPS is more than a school - it is the heartbeat of
                         Rampura&apos;s future. With a commitment to limited class strength,
                         every child receives the personal attention they deserve.
                     </p>
