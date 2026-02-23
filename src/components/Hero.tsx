@@ -1,31 +1,103 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end start"],
-    });
+    const bgRef = useRef<HTMLDivElement>(null);
+    const overlayRef = useRef<HTMLDivElement>(null);
+    const driftRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
 
-    /* ── 3-layer parallax speeds ── */
-    const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);       // Layer 1 – bg image
-    const overlayY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);   // Layer 2 – light wash
-    const fadeOut = useTransform(scrollYProgress, [0, 0.6], [1, 0]);         // Content fade on scroll
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        const prefersReduced = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+        if (prefersReduced) return;
+
+        const ctx = gsap.context(() => {
+            // Layer 1: Background parallax at 0.8x scroll speed
+            if (bgRef.current) {
+                gsap.to(bgRef.current, {
+                    yPercent: 20,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }
+
+            // Layer 2: Light overlay parallax at 0.9x
+            if (overlayRef.current) {
+                gsap.to(overlayRef.current, {
+                    yPercent: 12,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }
+
+            // Light drift layer — very subtle slow shift
+            if (driftRef.current) {
+                gsap.to(driftRef.current, {
+                    yPercent: 8,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }
+
+            // Content fade on scroll
+            if (contentRef.current) {
+                gsap.to(contentRef.current, {
+                    opacity: 0,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top top",
+                        end: "60% top",
+                        scrub: true,
+                    },
+                });
+            }
+        }, container);
+
+        return () => ctx.revert();
+    }, []);
+
+    /* Stagger config for text entrance */
+    const textEase = [0.22, 1, 0.36, 1] as const;
 
     return (
         <section
             ref={containerRef}
             className="relative min-h-screen flex items-center overflow-hidden"
         >
-            {/* ─── LAYER 1: Background Image (0.6x scroll) ─── */}
-            <motion.div
-                style={{ y: bgY }}
-                className="absolute -top-[15%] left-0 right-0 h-[125%]"
+            {/* ─── LAYER 1: Background Image (0.8x scroll) ─── */}
+            <div
+                ref={bgRef}
+                className="absolute -top-[15%] left-0 right-0 h-[125%] will-change-transform"
             >
                 <Image
                     src="/images/hero.png"
@@ -45,12 +117,12 @@ export default function Hero() {
                         mixBlendMode: "multiply",
                     }}
                 />
-            </motion.div>
+            </div>
 
-            {/* ─── LAYER 2: Light / atmosphere overlay (0.8x scroll) ─── */}
-            <motion.div
-                style={{ y: overlayY }}
-                className="absolute inset-0"
+            {/* ─── LAYER 2: Light / atmosphere overlay (0.9x scroll) ─── */}
+            <div
+                ref={overlayRef}
+                className="absolute inset-0 will-change-transform"
             >
                 {/* Directional light — softens left, reveals right */}
                 <div
@@ -73,12 +145,24 @@ export default function Hero() {
                             "linear-gradient(to bottom, rgba(15,10,6,0.50) 0%, rgba(20,14,10,0.30) 50%, transparent 100%)",
                     }}
                 />
-            </motion.div>
+            </div>
+
+            {/* ─── LAYER 2.5: Light drift gradient (subtle depth) ─── */}
+            <div
+                ref={driftRef}
+                className="absolute inset-0 will-change-transform"
+                style={{
+                    background:
+                        "radial-gradient(ellipse 80% 60% at 70% 40%, rgba(244,232,220,0.06) 0%, transparent 70%)",
+                    pointerEvents: "none",
+                }}
+            />
 
             {/* ─── LAYER 3: Content (static, with fade-on-scroll) ─── */}
-            <motion.div
-                style={{ opacity: fadeOut }}
-                className="relative z-20 w-full max-w-7xl mx-auto px-8 md:px-16 lg:px-20"
+            <div
+                ref={contentRef}
+                className="relative z-20 w-full max-w-7xl mx-auto"
+                style={{ paddingLeft: 42, paddingRight: 32, paddingTop: 0, paddingBottom: 0 }}
             >
                 <div className="max-w-2xl pt-24">
                     {/* Glass text backing — anchors left content compositionally */}
@@ -101,7 +185,7 @@ export default function Hero() {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: 0.7, delay: 0.3, ease: textEase }}
                         style={{
                             display: "flex",
                             alignItems: "center",
@@ -110,13 +194,13 @@ export default function Hero() {
                             position: "relative",
                         }}
                     >
-                        <div style={{ width: 32, height: 1, backgroundColor: "rgba(198, 90, 58, 0.7)" }} />
+                        <div style={{ width: 32, height: 1, backgroundColor: "rgba(244, 180, 150, 0.8)" }} />
                         <span
                             style={{
-                                color: "rgba(198, 90, 58, 0.85)",
+                                color: "rgba(244, 180, 150, 0.95)",
                                 fontFamily: "'Inter', sans-serif",
                                 fontWeight: 600,
-                                fontSize: 11,
+                                fontSize: 12,
                                 letterSpacing: "0.35em",
                                 textTransform: "uppercase" as const,
                             }}
@@ -125,11 +209,11 @@ export default function Hero() {
                         </span>
                     </motion.div>
 
-                    {/* Heading */}
+                    {/* Heading — staggered words */}
                     <motion.h1
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.9, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: 0.8, delay: 0.5, ease: textEase }}
                         style={{
                             fontFamily: "'Playfair Display', serif",
                             fontWeight: 700,
@@ -160,7 +244,7 @@ export default function Hero() {
                     <motion.p
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: 0.8, delay: 0.7, ease: textEase }}
                         style={{
                             color: "rgba(255, 252, 245, 0.55)",
                             fontFamily: "'Inter', sans-serif",
@@ -180,7 +264,7 @@ export default function Hero() {
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: 0.8, delay: 0.9, ease: textEase }}
                         className="flex flex-col sm:flex-row gap-4"
                         style={{ position: "relative" }}
                     >
@@ -203,8 +287,8 @@ export default function Hero() {
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.backgroundColor = "#b8523c";
-                                e.currentTarget.style.transform = "translateY(-1px)";
-                                e.currentTarget.style.boxShadow = "0 4px 24px rgba(198, 90, 58, 0.35)";
+                                e.currentTarget.style.transform = "translateY(-2px)";
+                                e.currentTarget.style.boxShadow = "0 6px 28px rgba(198, 90, 58, 0.35)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.backgroundColor = "#C65A3A";
@@ -234,17 +318,19 @@ export default function Hero() {
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.08)";
                                 e.currentTarget.style.borderColor = "rgba(255,255,255,0.35)";
+                                e.currentTarget.style.transform = "translateY(-2px)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.backgroundColor = "transparent";
                                 e.currentTarget.style.borderColor = "rgba(255,255,255,0.22)";
+                                e.currentTarget.style.transform = "translateY(0)";
                             }}
                         >
                             Admissions Open
                         </a>
                     </motion.div>
                 </div>
-            </motion.div>
+            </div>
 
             {/* ─── Scroll indicator ─── */}
             <motion.div

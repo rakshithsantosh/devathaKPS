@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import ScrollReveal from "./ScrollReveal";
+import WordReveal from "./WordReveal";
 import { BookOpen, Heart, Shield, Compass, Flame, Users } from "lucide-react";
 
 const pillars = [
@@ -67,79 +68,69 @@ export default function CulturalValues() {
                 }}
             >
                 {/* ─── Header ─── */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                    viewport={{ once: true }}
-                    style={{ maxWidth: 640, marginBottom: 72 }}
-                >
-                    <span
-                        style={{
-                            color: "#C65A3A",
-                            fontFamily: "'Inter', sans-serif",
-                            fontWeight: 600,
-                            fontSize: 11,
-                            letterSpacing: "0.3em",
-                            textTransform: "uppercase" as const,
-                            display: "block",
-                            marginBottom: 24,
-                        }}
-                    >
-                        Character &amp; Heritage
-                    </span>
+                <ScrollReveal y={30} duration={0.7}>
+                    <div style={{ maxWidth: 640, marginBottom: 72 }}>
+                        <span
+                            style={{
+                                color: "#C65A3A",
+                                fontFamily: "'Inter', sans-serif",
+                                fontWeight: 600,
+                                fontSize: 11,
+                                letterSpacing: "0.3em",
+                                textTransform: "uppercase" as const,
+                                display: "block",
+                                marginBottom: 24,
+                            }}
+                        >
+                            Character &amp; Heritage
+                        </span>
 
-                    <h2
-                        style={{
-                            fontFamily: "'Playfair Display', serif",
-                            fontWeight: 700,
-                            color: "#3E2A23",
-                            fontSize: "clamp(2rem, 4vw, 2.75rem)",
-                            lineHeight: 1.15,
-                            marginBottom: 24,
-                        }}
-                    >
-                        Rooted in Values.
-                        <br />
-                        Guided by Wisdom.
-                    </h2>
+                        <h2
+                            style={{
+                                fontFamily: "'Playfair Display', serif",
+                                fontWeight: 700,
+                                color: "#3E2A23",
+                                fontSize: "clamp(2rem, 4vw, 2.75rem)",
+                                lineHeight: 1.15,
+                                marginBottom: 24,
+                            }}
+                        >
+                            Rooted in Values.
+                            <br />
+                            Guided by Wisdom.
+                        </h2>
 
-                    {/* Terracotta divider */}
-                    <div
-                        style={{
-                            width: 48,
-                            height: 2,
-                            backgroundColor: "#C65A3A",
-                            borderRadius: 1,
-                            marginBottom: 28,
-                        }}
-                    />
+                        {/* Terracotta divider */}
+                        <div
+                            style={{
+                                width: 48,
+                                height: 2,
+                                backgroundColor: "#C65A3A",
+                                borderRadius: 1,
+                                marginBottom: 28,
+                            }}
+                        />
 
-                    <p
-                        style={{
-                            fontFamily: "'Inter', sans-serif",
-                            color: "#7B736C",
-                            fontSize: 16,
-                            fontWeight: 300,
-                            lineHeight: 1.8,
-                        }}
-                    >
-                        We nurture character by connecting students to timeless family
-                        values, cultural heritage, and universal principles of
-                        responsibility, courage, and integrity.
-                    </p>
-                </motion.div>
+                        <p
+                            style={{
+                                fontFamily: "'Inter', sans-serif",
+                                color: "#7B736C",
+                                fontSize: 16,
+                                fontWeight: 300,
+                                lineHeight: 1.8,
+                            }}
+                        >
+                            We nurture character by connecting students to timeless family
+                            values, cultural heritage, and universal principles of
+                            responsibility, courage, and integrity.
+                        </p>
+                    </div>
+                </ScrollReveal>
 
                 {/* ─── Two-column layout: body text + pillar grid ─── */}
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-16" style={{ alignItems: "start" }}>
-                    {/* Left column — narrative text */}
-                    <motion.div
-                        className="lg:col-span-2"
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        viewport={{ once: true }}
-                    >
+                    {/* Left column — narrative text with WordReveal */}
+                    <ScrollReveal className="lg:col-span-2" y={24} duration={0.6} delay={0.1}>
                         <div
                             style={{
                                 backgroundColor: "#FFFFFF",
@@ -160,8 +151,17 @@ export default function CulturalValues() {
                                     fontStyle: "italic",
                                 }}
                             >
-                                &ldquo;Education is the manifestation of the perfection already
-                                in man.&rdquo;
+                                <WordReveal
+                                    text="Education is the manifestation of the perfection already in man."
+                                    style={{
+                                        fontFamily: "'Playfair Display', serif",
+                                        fontWeight: 600,
+                                        color: "#3E2A23",
+                                        fontSize: 18,
+                                        lineHeight: 1.6,
+                                        fontStyle: "italic",
+                                    }}
+                                />
                             </p>
                             <p
                                 style={{
@@ -196,82 +196,78 @@ export default function CulturalValues() {
                                 world with clarity and character.
                             </p>
                         </div>
-                    </motion.div>
+                    </ScrollReveal>
 
                     {/* Right column — pillar cards */}
-                    <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {pillars.map((pillar, i) => (
-                            <motion.div
-                                key={pillar.title}
-                                initial={{ opacity: 0, y: 24 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{
-                                    duration: 0.5,
-                                    delay: i * 0.08,
-                                    ease: [0.22, 1, 0.36, 1],
-                                }}
-                                viewport={{ once: true }}
-                                style={{
-                                    backgroundColor: "#FFFFFF",
-                                    borderRadius: 16,
-                                    padding: "24px 24px 20px",
-                                    border: "1px solid rgba(240, 228, 216, 0.7)",
-                                    boxShadow: "0 1px 8px rgba(62, 42, 35, 0.03)",
-                                    transition: "all 0.3s ease",
-                                    cursor: "default",
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.boxShadow = "0 4px 20px rgba(62, 42, 35, 0.08)";
-                                    e.currentTarget.style.transform = "translateY(-2px)";
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.boxShadow = "0 1px 8px rgba(62, 42, 35, 0.03)";
-                                    e.currentTarget.style.transform = "translateY(0)";
-                                }}
-                            >
+                    <ScrollReveal className="lg:col-span-3" stagger={0.08} y={24} duration={0.5}>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {pillars.map((pillar) => (
                                 <div
+                                    key={pillar.title}
                                     style={{
-                                        width: 36,
-                                        height: 36,
-                                        borderRadius: 10,
-                                        backgroundColor: "rgba(198, 90, 58, 0.08)",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        marginBottom: 14,
+                                        backgroundColor: "#FFFFFF",
+                                        borderRadius: 16,
+                                        padding: "24px 24px 20px",
+                                        border: "1px solid rgba(240, 228, 216, 0.7)",
+                                        boxShadow: "0 1px 8px rgba(62, 42, 35, 0.03)",
+                                        transition: "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease",
+                                        cursor: "default",
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.boxShadow = "0 8px 28px rgba(62, 42, 35, 0.08)";
+                                        e.currentTarget.style.transform = "translateY(-4px)";
+                                        e.currentTarget.style.borderColor = "rgba(198, 90, 58, 0.18)";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.boxShadow = "0 1px 8px rgba(62, 42, 35, 0.03)";
+                                        e.currentTarget.style.transform = "translateY(0)";
+                                        e.currentTarget.style.borderColor = "rgba(240, 228, 216, 0.7)";
                                     }}
                                 >
-                                    <pillar.icon
-                                        style={{ width: 18, height: 18, color: "#C65A3A" }}
-                                    />
+                                    <div
+                                        style={{
+                                            width: 36,
+                                            height: 36,
+                                            borderRadius: 10,
+                                            backgroundColor: "rgba(198, 90, 58, 0.08)",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            marginBottom: 14,
+                                        }}
+                                    >
+                                        <pillar.icon
+                                            style={{ width: 18, height: 18, color: "#C65A3A" }}
+                                        />
+                                    </div>
+                                    <h3
+                                        style={{
+                                            fontFamily: "'Playfair Display', serif",
+                                            fontWeight: 700,
+                                            color: "#3E2A23",
+                                            fontSize: 15,
+                                            marginBottom: 8,
+                                            lineHeight: 1.3,
+                                        }}
+                                    >
+                                        {pillar.title}
+                                    </h3>
+                                    <p
+                                        style={{
+                                            fontFamily: "'Inter', sans-serif",
+                                            color: "#9B938C",
+                                            fontSize: 13,
+                                            fontWeight: 300,
+                                            lineHeight: 1.7,
+                                            margin: 0,
+                                        }}
+                                    >
+                                        {pillar.text}
+                                    </p>
                                 </div>
-                                <h3
-                                    style={{
-                                        fontFamily: "'Playfair Display', serif",
-                                        fontWeight: 700,
-                                        color: "#3E2A23",
-                                        fontSize: 15,
-                                        marginBottom: 8,
-                                        lineHeight: 1.3,
-                                    }}
-                                >
-                                    {pillar.title}
-                                </h3>
-                                <p
-                                    style={{
-                                        fontFamily: "'Inter', sans-serif",
-                                        color: "#9B938C",
-                                        fontSize: 13,
-                                        fontWeight: 300,
-                                        lineHeight: 1.7,
-                                        margin: 0,
-                                    }}
-                                >
-                                    {pillar.text}
-                                </p>
-                            </motion.div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    </ScrollReveal>
                 </div>
             </div>
         </section>

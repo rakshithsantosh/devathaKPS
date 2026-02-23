@@ -1,188 +1,170 @@
 "use client";
 
-import { Instagram, Facebook, MapPin } from "lucide-react";
 import Image from "next/image";
+import { MapPin } from "lucide-react";
+import ScrollReveal from "./ScrollReveal";
 
 export default function Footer() {
     return (
-        <footer style={{ backgroundColor: "#1e120c", paddingTop: 96, paddingBottom: 48 }}>
-            <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 48px" }}>
-                {/* Top: Logo + Social */}
-                <div
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        marginBottom: 64,
-                    }}
-                >
-                    <div
-                        style={{
-                            width: 72,
-                            height: 72,
-                            borderRadius: 18,
-                            overflow: "hidden",
-                            position: "relative",
-                            marginBottom: 24,
-                            border: "1px solid rgba(244, 232, 220, 0.1)",
-                            boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
-                        }}
-                    >
-                        <Image
-                            src="/images/logo.jpg"
-                            alt="Devatha KPS Logo"
-                            fill
-                            className="object-cover"
-                            quality={90}
-                        />
-                    </div>
-                    <h2
-                        style={{
-                            fontFamily: "'Playfair Display', serif",
-                            fontWeight: 700,
-                            color: "#F4E8DC",
-                            fontSize: 24,
-                            letterSpacing: "0.05em",
-                            marginBottom: 8,
-                        }}
-                    >
-                        DEVATHA KPS
-                    </h2>
-                    <p
-                        style={{
-                            fontFamily: "'Inter', sans-serif",
-                            color: "rgba(244, 232, 220, 0.25)",
-                            fontSize: 10,
-                            textTransform: "uppercase" as const,
-                            letterSpacing: "0.4em",
-                            fontWeight: 600,
-                            marginBottom: 32,
-                        }}
-                    >
-                        Rampura &bull; Karnataka
-                    </p>
-                    <div style={{ display: "flex", gap: 12 }}>
-                        {[
-                            { Icon: Instagram, label: "Instagram" },
-                            { Icon: Facebook, label: "Facebook" },
-                        ].map(({ Icon, label }) => (
-                            <a
-                                key={label}
-                                href="#"
-                                aria-label={label}
+        <footer
+            style={{
+                backgroundColor: "#1A120D",
+                borderTop: "1px solid rgba(198, 90, 58, 0.15)",
+                position: "relative",
+            }}
+        >
+            <div
+                style={{
+                    maxWidth: 1200,
+                    margin: "0 auto",
+                    padding: "56px 48px 32px",
+                }}
+            >
+                <ScrollReveal y={20} duration={0.6} stagger={0.08}>
+                    <div className="grid md:grid-cols-3 gap-12" style={{ marginBottom: 48 }}>
+                        {/* Logo + name */}
+                        <div>
+                            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
+                                <div
+                                    style={{
+                                        width: 44,
+                                        height: 44,
+                                        borderRadius: 12,
+                                        overflow: "hidden",
+                                        flexShrink: 0,
+                                    }}
+                                >
+                                    <Image
+                                        src="/images/logo.jpg"
+                                        alt="Devatha KPS Logo"
+                                        width={44}
+                                        height={44}
+                                        className="object-cover"
+                                    />
+                                </div>
+                                <div>
+                                    <h3
+                                        style={{
+                                            fontFamily: "'Playfair Display', serif",
+                                            color: "#FFFFFF",
+                                            fontSize: 17,
+                                            fontWeight: 700,
+                                            lineHeight: 1.2,
+                                            margin: 0,
+                                        }}
+                                    >
+                                        Devatha KPS
+                                    </h3>
+                                </div>
+                            </div>
+                            <p
                                 style={{
-                                    width: 40,
-                                    height: 40,
-                                    borderRadius: "50%",
-                                    border: "1px solid rgba(244, 232, 220, 0.1)",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    color: "rgba(244, 232, 220, 0.35)",
-                                    transition: "all 0.3s ease",
-                                    textDecoration: "none",
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.backgroundColor = "#C65A3A";
-                                    e.currentTarget.style.borderColor = "#C65A3A";
-                                    e.currentTarget.style.color = "#FFFFFF";
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.backgroundColor = "transparent";
-                                    e.currentTarget.style.borderColor = "rgba(244, 232, 220, 0.1)";
-                                    e.currentTarget.style.color = "rgba(244, 232, 220, 0.35)";
+                                    fontFamily: "'Inter', sans-serif",
+                                    color: "rgba(255,255,255,0.4)",
+                                    fontSize: 13,
+                                    lineHeight: 1.7,
+                                    maxWidth: 280,
+                                    fontWeight: 300,
                                 }}
                             >
-                                <Icon style={{ width: 16, height: 16 }} />
-                            </a>
-                        ))}
-                    </div>
-                </div>
+                                A modern, sustainable school rooted in the
+                                community and values of Rampura.
+                            </p>
+                        </div>
 
-                {/* 2-column info */}
+                        {/* Location */}
+                        <div>
+                            <h4
+                                style={{
+                                    fontFamily: "'Inter', sans-serif",
+                                    color: "rgba(255,255,255,0.55)",
+                                    fontWeight: 600,
+                                    fontSize: 11,
+                                    letterSpacing: "0.2em",
+                                    textTransform: "uppercase" as const,
+                                    marginBottom: 16,
+                                }}
+                            >
+                                Location
+                            </h4>
+                            <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+                                <MapPin style={{ width: 16, height: 16, color: "#C65A3A", marginTop: 3, flexShrink: 0 }} />
+                                <p
+                                    style={{
+                                        fontFamily: "'Inter', sans-serif",
+                                        color: "rgba(255,255,255,0.5)",
+                                        fontSize: 14,
+                                        lineHeight: 1.65,
+                                        fontWeight: 300,
+                                        margin: 0,
+                                    }}
+                                >
+                                    Rampura Village, Karnataka
+                                    <br />
+                                    India
+                                </p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </ScrollReveal>
+
+                {/* Bottom bar */}
                 <div
-                    className="grid grid-cols-1 md:grid-cols-2 gap-12"
                     style={{
-                        maxWidth: 700,
-                        margin: "0 auto 64px",
-                        textAlign: "center",
-                        borderTop: "1px solid rgba(244, 232, 220, 0.08)",
-                        borderBottom: "1px solid rgba(244, 232, 220, 0.08)",
-                        padding: "48px 0",
+                        borderTop: "1px solid rgba(255,255,255,0.06)",
+                        paddingTop: 24,
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: 12,
                     }}
                 >
-                    <div>
-                        <h4
-                            style={{
-                                color: "#C65A3A",
-                                fontFamily: "'Inter', sans-serif",
-                                fontWeight: 600,
-                                fontSize: 10,
-                                textTransform: "uppercase" as const,
-                                letterSpacing: "0.2em",
-                                marginBottom: 20,
-                            }}
-                        >
-                            Location
-                        </h4>
-                        <p style={{ color: "rgba(244, 232, 220, 0.45)", fontSize: 14, fontWeight: 300, fontFamily: "'Inter', sans-serif", display: "flex", alignItems: "flex-start", justifyContent: "center", gap: 8, margin: 0 }}>
-                            <MapPin style={{ width: 14, height: 14, marginTop: 4, flexShrink: 0 }} />
-                            <span>
-                                Devatha KPS, Rampura Village,
-                                <br />
-                                Srirangapatna Taluk, Karnataka
-                            </span>
-                        </p>
-                    </div>
-                    <div>
-                        <h4
-                            style={{
-                                color: "#C65A3A",
-                                fontFamily: "'Inter', sans-serif",
-                                fontWeight: 600,
-                                fontSize: 10,
-                                textTransform: "uppercase" as const,
-                                letterSpacing: "0.2em",
-                                marginBottom: 20,
-                            }}
-                        >
-                            Affiliation
-                        </h4>
-                        <p
-                            style={{
-                                color: "rgba(244, 232, 220, 0.35)",
-                                fontSize: 12,
-                                fontWeight: 300,
-                                fontFamily: "'Inter', sans-serif",
-                                fontStyle: "italic",
-                                lineHeight: 1.7,
-                                margin: 0,
-                            }}
-                        >
-                            Government of Karnataka
-                            <br />
-                            Supported Institution.
-                            <br />
-                            English Medium Higher Primary.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Copyright */}
-                <div style={{ textAlign: "center" }}>
                     <p
                         style={{
-                            color: "rgba(244, 232, 220, 0.12)",
-                            fontSize: 10,
-                            textTransform: "uppercase" as const,
-                            letterSpacing: "0.3em",
-                            fontWeight: 600,
                             fontFamily: "'Inter', sans-serif",
+                            color: "rgba(255,255,255,0.25)",
+                            fontSize: 12,
+                            fontWeight: 300,
                             margin: 0,
                         }}
                     >
-                        &copy; 2026 Devatha KPS Rampura. Designed with Intention.
+                        © {new Date().getFullYear()} Devatha KPS. All rights reserved.
                     </p>
+                    <div style={{ display: "flex", gap: 24 }}>
+                        <a
+                            href="/privacy"
+                            style={{
+                                fontFamily: "'Inter', sans-serif",
+                                color: "rgba(255,255,255,0.25)",
+                                fontSize: 12,
+                                fontWeight: 300,
+                                textDecoration: "none",
+                                transition: "color 0.2s",
+                            }}
+                            onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.5)"; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.25)"; }}
+                        >
+                            Privacy
+                        </a>
+                        <a
+                            href="/terms"
+                            style={{
+                                fontFamily: "'Inter', sans-serif",
+                                color: "rgba(255,255,255,0.25)",
+                                fontSize: 12,
+                                fontWeight: 300,
+                                textDecoration: "none",
+                                transition: "color 0.2s",
+                            }}
+                            onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.5)"; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.25)"; }}
+                        >
+                            Terms
+                        </a>
+                    </div>
                 </div>
             </div>
         </footer>

@@ -1,131 +1,181 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollReveal from "./ScrollReveal";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Admissions() {
+    const sectionRef = useRef<HTMLElement>(null);
+    const bgRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        const prefersReduced = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+        if (prefersReduced) return;
+
+        const ctx = gsap.context(() => {
+            if (bgRef.current) {
+                gsap.to(bgRef.current, {
+                    yPercent: 15,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }
+        }, section);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section id="admissions" style={{ position: "relative", overflow: "hidden" }}>
-            {/* Background image */}
-            <div style={{ position: "absolute", inset: 0 }}>
+        <section
+            ref={sectionRef}
+            id="admissions"
+            style={{
+                position: "relative",
+                minHeight: 480,
+                display: "flex",
+                alignItems: "center",
+                overflow: "hidden",
+            }}
+        >
+            {/* Background with parallax */}
+            <div
+                ref={bgRef}
+                className="will-change-transform"
+                style={{
+                    position: "absolute",
+                    inset: "-20%",
+                    width: "140%",
+                    height: "140%",
+                }}
+            >
                 <Image
                     src="/images/hero.png"
-                    alt="Devatha KPS Campus"
+                    alt="Devatha KPS campus"
                     fill
                     className="object-cover"
-                    quality={80}
-                />
-                <div
-                    style={{
-                        position: "absolute",
-                        inset: 0,
-                        background:
-                            "linear-gradient(135deg, rgba(30, 18, 12, 0.94) 0%, rgba(62, 42, 35, 0.92) 100%)",
-                    }}
+                    quality={85}
                 />
             </div>
 
+            {/* Dark gradient overlay (static) */}
             <div
                 style={{
-                    position: "relative",
-                    zIndex: 10,
-                    maxWidth: 1280,
+                    position: "absolute",
+                    inset: 0,
+                    background:
+                        "linear-gradient(180deg, rgba(20,12,8,0.88) 0%, rgba(20,12,8,0.82) 60%, rgba(20,12,8,0.92) 100%)",
+                    zIndex: 1,
+                }}
+            />
+
+            {/* Content */}
+            <div
+                style={{
+                    maxWidth: 680,
                     margin: "0 auto",
-                    padding: "112px 48px 128px",
+                    padding: "80px 48px",
+                    textAlign: "center",
+                    position: "relative",
+                    zIndex: 2,
                 }}
             >
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                    style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}
-                >
-                    <span
-                        style={{
-                            color: "#C65A3A",
-                            fontFamily: "'Inter', sans-serif",
-                            fontWeight: 600,
-                            fontSize: 11,
-                            letterSpacing: "0.35em",
-                            textTransform: "uppercase" as const,
-                            display: "block",
-                            marginBottom: 32,
-                        }}
-                    >
-                        Enroll Now
-                    </span>
+                <ScrollReveal y={30} duration={0.8} stagger={0.1}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 24 }}>
+                        <div style={{ width: 32, height: 1, backgroundColor: "rgba(198, 90, 58, 0.7)" }} />
+                        <span
+                            style={{
+                                color: "rgba(198, 90, 58, 0.85)",
+                                fontFamily: "'Inter', sans-serif",
+                                fontWeight: 600,
+                                fontSize: 11,
+                                letterSpacing: "0.3em",
+                                textTransform: "uppercase" as const,
+                            }}
+                        >
+                            Join Us
+                        </span>
+                        <div style={{ width: 32, height: 1, backgroundColor: "rgba(198, 90, 58, 0.7)" }} />
+                    </div>
+
                     <h2
                         style={{
                             fontFamily: "'Playfair Display', serif",
                             fontWeight: 700,
-                            color: "#F4E8DC",
-                            fontSize: "clamp(2.5rem, 5vw, 4rem)",
-                            lineHeight: 1.1,
-                            marginBottom: 24,
+                            color: "#FFFFFF",
+                            fontSize: "clamp(2rem, 4vw, 3rem)",
+                            lineHeight: 1.15,
+                            marginBottom: 20,
                         }}
                     >
-                        Admissions Open
+                        Admissions{" "}
+                        <span style={{ fontWeight: 400, fontStyle: "italic", color: "rgba(255,255,255,0.55)" }}>
+                            Open
+                        </span>
                     </h2>
+
                     <p
                         style={{
                             fontFamily: "'Inter', sans-serif",
-                            color: "rgba(244, 232, 220, 0.5)",
-                            fontSize: 18,
+                            color: "rgba(255,255,255,0.55)",
+                            fontSize: 16,
+                            lineHeight: 1.85,
                             fontWeight: 300,
-                            lineHeight: 1.6,
-                            marginBottom: 12,
+                            marginBottom: 40,
+                            maxWidth: 520,
+                            margin: "0 auto 40px",
                         }}
                     >
-                        Grades 1 to 5 - English Medium
-                    </p>
-                    <p
-                        style={{
-                            fontFamily: "'Inter', sans-serif",
-                            color: "#C65A3A",
-                            fontSize: 15,
-                            fontWeight: 600,
-                            letterSpacing: "0.05em",
-                            marginBottom: 56,
-                        }}
-                    >
-                        Extension to Grade 10 in Progress
+                        Enrol your child in a school that values education, architecture, and
+                        community in equal measure.
                     </p>
 
-                    <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div className="flex justify-center">
                         <a
                             href="/contact"
                             style={{
                                 display: "inline-flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                gap: 10,
                                 backgroundColor: "#C65A3A",
                                 color: "#FFFFFF",
-                                padding: "16px 40px",
+                                padding: "15px 34px",
                                 borderRadius: 9999,
-                                fontSize: 15,
+                                fontSize: 14,
                                 fontWeight: 600,
                                 fontFamily: "'Inter', sans-serif",
                                 textDecoration: "none",
-                                boxShadow: "0 4px 24px rgba(198, 90, 58, 0.4)",
-                                transition: "all 0.3s ease",
+                                boxShadow: "0 2px 16px rgba(198, 90, 58, 0.25)",
+                                transition: "all 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = "#b14f30";
+                                e.currentTarget.style.backgroundColor = "#b8523c";
                                 e.currentTarget.style.transform = "translateY(-2px)";
+                                e.currentTarget.style.boxShadow = "0 6px 28px rgba(198, 90, 58, 0.35)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.backgroundColor = "#C65A3A";
                                 e.currentTarget.style.transform = "translateY(0)";
+                                e.currentTarget.style.boxShadow = "0 2px 16px rgba(198, 90, 58, 0.25)";
                             }}
                         >
-                            Contact Us
-                            <ArrowRight style={{ width: 16, height: 16 }} />
+                            Begin Application
                         </a>
                     </div>
-                </motion.div>
+                </ScrollReveal>
             </div>
         </section>
     );

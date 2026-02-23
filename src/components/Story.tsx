@@ -1,7 +1,13 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollReveal from "./ScrollReveal";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
     { value: "1–5", label: "Grades Offered" },
@@ -11,103 +17,127 @@ const stats = [
 ];
 
 export default function Story() {
+    const imageRef = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        const prefersReduced = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+        if (prefersReduced) return;
+
+        const ctx = gsap.context(() => {
+            if (imageRef.current) {
+                gsap.to(imageRef.current, {
+                    yPercent: 6,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }
+        }, section);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section id="story" style={{ padding: "112px 0 128px", backgroundColor: "#FAF6F1" }}>
+        <section ref={sectionRef} id="story" style={{ padding: "112px 0 128px", backgroundColor: "#FAF6F1" }}>
             <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 48px" }}>
                 <div className="grid lg:grid-cols-2 gap-16 xl:gap-28 items-center">
-                    {/* Left: Real Image */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                        className="relative"
-                    >
-                        <div
-                            style={{
-                                aspectRatio: "4/5",
-                                borderRadius: 24,
-                                overflow: "hidden",
-                                position: "relative",
-                            }}
-                        >
-                            <Image
-                                src="/images/story.png"
-                                alt="Granite and brick architecture of Devatha KPS"
-                                fill
-                                className="object-cover"
-                                quality={85}
-                            />
-                            {/* Quote overlay */}
+                    {/* Left: Real Image with subtle parallax */}
+                    <ScrollReveal y={40} duration={0.8}>
+                        <div className="relative">
+                            <div
+                                style={{
+                                    aspectRatio: "4/5",
+                                    borderRadius: 24,
+                                    overflow: "hidden",
+                                    position: "relative",
+                                }}
+                            >
+                                <div ref={imageRef} className="will-change-transform" style={{ position: "absolute", inset: "-10%", width: "120%", height: "120%" }}>
+                                    <Image
+                                        src="/images/story.png"
+                                        alt="Granite and brick architecture of Devatha KPS"
+                                        fill
+                                        className="object-cover"
+                                        quality={85}
+                                    />
+                                </div>
+                                {/* Quote overlay */}
+                                <div
+                                    style={{
+                                        position: "absolute",
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                        padding: 28,
+                                        zIndex: 2,
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            background: "rgba(255,255,255,0.92)",
+                                            backdropFilter: "blur(12px)",
+                                            borderRadius: 20,
+                                            padding: "20px 24px",
+                                            boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
+                                        }}
+                                    >
+                                        <p
+                                            style={{
+                                                fontFamily: "'Playfair Display', serif",
+                                                color: "#3E2A23",
+                                                fontSize: 18,
+                                                fontStyle: "italic",
+                                                lineHeight: 1.4,
+                                                margin: 0,
+                                            }}
+                                        >
+                                            &ldquo;Built to last, designed to inspire.&rdquo;
+                                        </p>
+                                        <span
+                                            style={{
+                                                fontFamily: "'Inter', sans-serif",
+                                                color: "#7B736C",
+                                                fontSize: 10,
+                                                textTransform: "uppercase" as const,
+                                                letterSpacing: "0.2em",
+                                                fontWeight: 600,
+                                                marginTop: 8,
+                                                display: "block",
+                                            }}
+                                        >
+                                            Granite & Brick Architecture
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Decorative frame */}
                             <div
                                 style={{
                                     position: "absolute",
-                                    bottom: 0,
-                                    left: 0,
-                                    right: 0,
-                                    padding: 28,
+                                    bottom: -20,
+                                    right: -20,
+                                    width: "100%",
+                                    height: "100%",
+                                    border: "2px solid rgba(198, 90, 58, 0.12)",
+                                    borderRadius: 24,
+                                    zIndex: -1,
                                 }}
-                            >
-                                <div
-                                    style={{
-                                        background: "rgba(255,255,255,0.92)",
-                                        backdropFilter: "blur(12px)",
-                                        borderRadius: 20,
-                                        padding: "20px 24px",
-                                        boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
-                                    }}
-                                >
-                                    <p
-                                        style={{
-                                            fontFamily: "'Playfair Display', serif",
-                                            color: "#3E2A23",
-                                            fontSize: 18,
-                                            fontStyle: "italic",
-                                            lineHeight: 1.4,
-                                            margin: 0,
-                                        }}
-                                    >
-                                        &ldquo;Built to last, designed to inspire.&rdquo;
-                                    </p>
-                                    <span
-                                        style={{
-                                            fontFamily: "'Inter', sans-serif",
-                                            color: "#7B736C",
-                                            fontSize: 10,
-                                            textTransform: "uppercase" as const,
-                                            letterSpacing: "0.2em",
-                                            fontWeight: 600,
-                                            marginTop: 8,
-                                            display: "block",
-                                        }}
-                                    >
-                                        Granite & Brick Architecture
-                                    </span>
-                                </div>
-                            </div>
+                            />
                         </div>
-                        {/* Decorative frame */}
-                        <div
-                            style={{
-                                position: "absolute",
-                                bottom: -20,
-                                right: -20,
-                                width: "100%",
-                                height: "100%",
-                                border: "2px solid rgba(198, 90, 58, 0.12)",
-                                borderRadius: 24,
-                                zIndex: -1,
-                            }}
-                        />
-                    </motion.div>
+                    </ScrollReveal>
 
                     {/* Right: Text Block */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                    >
+                    <ScrollReveal y={40} duration={0.8} delay={0.1}>
                         {/* Section label */}
                         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
                             <div style={{ width: 32, height: 1, backgroundColor: "#C65A3A" }} />
@@ -188,7 +218,19 @@ export default function Story() {
                                                 ? "0 4px 20px rgba(198, 90, 58, 0.25)"
                                                 : "0 2px 12px rgba(62, 42, 35, 0.05)",
                                             cursor: "default",
-                                            transition: "all 0.3s ease",
+                                            transition: "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease",
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            if (!isAccent) {
+                                                e.currentTarget.style.transform = "translateY(-4px)";
+                                                e.currentTarget.style.boxShadow = "0 8px 28px rgba(62, 42, 35, 0.1)";
+                                            }
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            if (!isAccent) {
+                                                e.currentTarget.style.transform = "translateY(0)";
+                                                e.currentTarget.style.boxShadow = "0 2px 12px rgba(62, 42, 35, 0.05)";
+                                            }
                                         }}
                                     >
                                         <span
@@ -219,7 +261,7 @@ export default function Story() {
                                 );
                             })}
                         </div>
-                    </motion.div>
+                    </ScrollReveal>
                 </div>
             </div>
         </section>

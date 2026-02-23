@@ -1,8 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { Heart, Shield, Gamepad2, BookHeart } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollReveal from "./ScrollReveal";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const pillars = [
     { icon: Shield, label: "Safe Environment" },
@@ -12,17 +17,42 @@ const pillars = [
 ];
 
 export default function FoundationYears() {
+    const sectionRef = useRef<HTMLElement>(null);
+    const imageRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        const prefersReduced = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+        if (prefersReduced) return;
+
+        const ctx = gsap.context(() => {
+            if (imageRef.current) {
+                gsap.to(imageRef.current, {
+                    yPercent: 8,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: imageRef.current.parentElement,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }
+        }, section);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section style={{ padding: "112px 0 128px", backgroundColor: "#FAF6F1" }}>
+        <section ref={sectionRef} style={{ padding: "112px 0 128px", backgroundColor: "#FAF6F1" }}>
             <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 48px" }}>
                 <div className="grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
                     {/* Left: Text */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                    >
+                    <ScrollReveal y={30} duration={0.8}>
                         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
                             <div style={{ width: 32, height: 1, backgroundColor: "#C65A3A" }} />
                             <span
@@ -69,15 +99,11 @@ export default function FoundationYears() {
 
                         {/* Pillar Grid */}
                         <div className="grid grid-cols-2 gap-5">
-                            {pillars.map((pillar, i) => {
+                            {pillars.map((pillar) => {
                                 const Icon = pillar.icon;
                                 return (
-                                    <motion.div
+                                    <div
                                         key={pillar.label}
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        transition={{ duration: 0.5, delay: i * 0.1 }}
-                                        viewport={{ once: true }}
                                         style={{
                                             display: "flex",
                                             flexDirection: "column",
@@ -88,10 +114,17 @@ export default function FoundationYears() {
                                             backgroundColor: "#FFFFFF",
                                             borderRadius: 20,
                                             border: "1px solid #F0E4D8",
-                                            transition: "all 0.3s ease",
+                                            transition: "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease",
                                             cursor: "default",
                                         }}
-                                        className="hover:shadow-lg"
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.transform = "translateY(-4px)";
+                                            e.currentTarget.style.boxShadow = "0 8px 28px rgba(62, 42, 35, 0.08)";
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.transform = "translateY(0)";
+                                            e.currentTarget.style.boxShadow = "none";
+                                        }}
                                     >
                                         <div
                                             style={{
@@ -118,7 +151,7 @@ export default function FoundationYears() {
                                         >
                                             {pillar.label}
                                         </span>
-                                    </motion.div>
+                                    </div>
                                 );
                             })}
                         </div>
@@ -144,29 +177,38 @@ export default function FoundationYears() {
                                 inspired.&rdquo;
                             </p>
                         </div>
-                    </motion.div>
+                    </ScrollReveal>
 
-                    {/* Right: Image */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                        style={{
-                            aspectRatio: "4/5",
-                            borderRadius: 24,
-                            overflow: "hidden",
-                            position: "relative",
-                        }}
-                    >
-                        <Image
-                            src="/images/foundation.png"
-                            alt="Foundation years at Devatha KPS"
-                            fill
-                            className="object-cover"
-                            quality={85}
-                        />
-                    </motion.div>
+                    {/* Right: Image with parallax */}
+                    <ScrollReveal y={40} duration={0.8} delay={0.1}>
+                        <div
+                            style={{
+                                aspectRatio: "4/5",
+                                borderRadius: 24,
+                                overflow: "hidden",
+                                position: "relative",
+                            }}
+                        >
+                            <div
+                                ref={imageRef}
+                                className="will-change-transform"
+                                style={{
+                                    position: "absolute",
+                                    inset: "-10%",
+                                    width: "120%",
+                                    height: "120%",
+                                }}
+                            >
+                                <Image
+                                    src="/images/foundation.png"
+                                    alt="Foundation years at Devatha KPS"
+                                    fill
+                                    className="object-cover"
+                                    quality={85}
+                                />
+                            </div>
+                        </div>
+                    </ScrollReveal>
                 </div>
             </div>
         </section>
