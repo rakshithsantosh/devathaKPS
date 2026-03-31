@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Send } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 
 /* ── Data ── */
@@ -134,14 +133,6 @@ function ContactCard({
 
 /* ── Page ── */
 export default function ContactPage() {
-    const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
-    const [submitted, setSubmitted] = useState(false);
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Placeholder — integrate with backend/email service
-        setSubmitted(true);
-    };
 
     return (
         <main style={{ backgroundColor: "#FAF6F1", minHeight: "100vh" }}>
@@ -216,9 +207,11 @@ export default function ContactPage() {
                     maxWidth: 1152,
                     margin: "0 auto",
                     padding: "64px 48px 80px",
+                    display: "flex",
+                    justifyContent: "center",
                 }}
             >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div style={{ width: "100%", maxWidth: 680 }}>
                     {/* ── LEFT: Teams ── */}
                     <div>
                         {/* Faculty Team */}
@@ -296,249 +289,6 @@ export default function ContactPage() {
                             </div>
                         </motion.div>
                     </div>
-
-                    {/* ── RIGHT: Contact Form ── */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, delay: 0.15 }}
-                        viewport={{ once: true }}
-                    >
-                        <div
-                            style={{
-                                backgroundColor: "#FFFFFF",
-                                borderRadius: 20,
-                                padding: "40px 36px",
-                                boxShadow: "0 2px 16px rgba(62, 42, 35, 0.06)",
-                                border: "1px solid rgba(240, 228, 216, 0.7)",
-                            }}
-                        >
-                            <h2
-                                style={{
-                                    fontFamily: "'Playfair Display', serif",
-                                    fontWeight: 700,
-                                    color: "#3E2A23",
-                                    fontSize: 22,
-                                    marginBottom: 8,
-                                }}
-                            >
-                                Send us a Message
-                            </h2>
-                            <p
-                                style={{
-                                    fontFamily: "'Inter', sans-serif",
-                                    color: "#9B938C",
-                                    fontSize: 13,
-                                    fontWeight: 300,
-                                    marginBottom: 32,
-                                }}
-                            >
-                                We will get back to you as soon as possible.
-                            </p>
-
-                            {submitted ? (
-                                <div
-                                    style={{
-                                        textAlign: "center",
-                                        padding: "48px 24px",
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            width: 48,
-                                            height: 48,
-                                            borderRadius: "50%",
-                                            backgroundColor: "rgba(198, 90, 58, 0.1)",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            margin: "0 auto 20px",
-                                        }}
-                                    >
-                                        <Send style={{ width: 20, height: 20, color: "#C65A3A" }} />
-                                    </div>
-                                    <h3
-                                        style={{
-                                            fontFamily: "'Playfair Display', serif",
-                                            fontWeight: 700,
-                                            color: "#3E2A23",
-                                            fontSize: 20,
-                                            marginBottom: 8,
-                                        }}
-                                    >
-                                        Message Sent
-                                    </h3>
-                                    <p
-                                        style={{
-                                            fontFamily: "'Inter', sans-serif",
-                                            color: "#7B736C",
-                                            fontSize: 14,
-                                            fontWeight: 300,
-                                        }}
-                                    >
-                                        Thank you for reaching out. Our team will respond shortly.
-                                    </p>
-                                </div>
-                            ) : (
-                                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-                                    {/* Name */}
-                                    <div>
-                                        <label
-                                            style={{
-                                                fontFamily: "'Inter', sans-serif",
-                                                fontSize: 11,
-                                                fontWeight: 600,
-                                                color: "#9B938C",
-                                                letterSpacing: "0.15em",
-                                                textTransform: "uppercase" as const,
-                                                display: "block",
-                                                marginBottom: 8,
-                                            }}
-                                        >
-                                            Your Name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            required
-                                            value={formData.name}
-                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                            style={{
-                                                width: "100%",
-                                                padding: "14px 16px",
-                                                borderRadius: 12,
-                                                border: "1px solid #F0E4D8",
-                                                backgroundColor: "#FDFBF9",
-                                                fontFamily: "'Inter', sans-serif",
-                                                fontSize: 15,
-                                                color: "#3E2A23",
-                                                outline: "none",
-                                                transition: "border-color 0.2s ease",
-                                                boxSizing: "border-box" as const,
-                                            }}
-                                            onFocus={(e) => (e.currentTarget.style.borderColor = "#C65A3A")}
-                                            onBlur={(e) => (e.currentTarget.style.borderColor = "#F0E4D8")}
-                                            placeholder="Enter your name"
-                                        />
-                                    </div>
-
-                                    {/* Phone */}
-                                    <div>
-                                        <label
-                                            style={{
-                                                fontFamily: "'Inter', sans-serif",
-                                                fontSize: 11,
-                                                fontWeight: 600,
-                                                color: "#9B938C",
-                                                letterSpacing: "0.15em",
-                                                textTransform: "uppercase" as const,
-                                                display: "block",
-                                                marginBottom: 8,
-                                            }}
-                                        >
-                                            Phone Number
-                                        </label>
-                                        <input
-                                            type="tel"
-                                            required
-                                            value={formData.phone}
-                                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                            style={{
-                                                width: "100%",
-                                                padding: "14px 16px",
-                                                borderRadius: 12,
-                                                border: "1px solid #F0E4D8",
-                                                backgroundColor: "#FDFBF9",
-                                                fontFamily: "'Inter', sans-serif",
-                                                fontSize: 15,
-                                                color: "#3E2A23",
-                                                outline: "none",
-                                                transition: "border-color 0.2s ease",
-                                                boxSizing: "border-box" as const,
-                                            }}
-                                            onFocus={(e) => (e.currentTarget.style.borderColor = "#C65A3A")}
-                                            onBlur={(e) => (e.currentTarget.style.borderColor = "#F0E4D8")}
-                                            placeholder="+91 XXXXX XXXXX"
-                                        />
-                                    </div>
-
-                                    {/* Message */}
-                                    <div>
-                                        <label
-                                            style={{
-                                                fontFamily: "'Inter', sans-serif",
-                                                fontSize: 11,
-                                                fontWeight: 600,
-                                                color: "#9B938C",
-                                                letterSpacing: "0.15em",
-                                                textTransform: "uppercase" as const,
-                                                display: "block",
-                                                marginBottom: 8,
-                                            }}
-                                        >
-                                            Message
-                                        </label>
-                                        <textarea
-                                            required
-                                            rows={5}
-                                            value={formData.message}
-                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                            style={{
-                                                width: "100%",
-                                                padding: "14px 16px",
-                                                borderRadius: 12,
-                                                border: "1px solid #F0E4D8",
-                                                backgroundColor: "#FDFBF9",
-                                                fontFamily: "'Inter', sans-serif",
-                                                fontSize: 15,
-                                                color: "#3E2A23",
-                                                outline: "none",
-                                                transition: "border-color 0.2s ease",
-                                                resize: "vertical" as const,
-                                                boxSizing: "border-box" as const,
-                                            }}
-                                            onFocus={(e) => (e.currentTarget.style.borderColor = "#C65A3A")}
-                                            onBlur={(e) => (e.currentTarget.style.borderColor = "#F0E4D8")}
-                                            placeholder="How can we help you?"
-                                        />
-                                    </div>
-
-                                    {/* Submit */}
-                                    <button
-                                        type="submit"
-                                        style={{
-                                            display: "inline-flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            gap: 10,
-                                            backgroundColor: "#C65A3A",
-                                            color: "#FFFFFF",
-                                            padding: "15px 32px",
-                                            borderRadius: 9999,
-                                            fontSize: 14,
-                                            fontWeight: 600,
-                                            fontFamily: "'Inter', sans-serif",
-                                            border: "none",
-                                            cursor: "pointer",
-                                            boxShadow: "0 2px 16px rgba(198, 90, 58, 0.25)",
-                                            transition: "all 0.3s ease",
-                                            alignSelf: "flex-start",
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.backgroundColor = "#b8523c";
-                                            e.currentTarget.style.transform = "translateY(-1px)";
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.backgroundColor = "#C65A3A";
-                                            e.currentTarget.style.transform = "translateY(0)";
-                                        }}
-                                    >
-                                        Send Message
-                                        <Send style={{ width: 14, height: 14 }} />
-                                    </button>
-                                </form>
-                            )}
-                        </div>
-                    </motion.div>
                 </div>
             </section>
 

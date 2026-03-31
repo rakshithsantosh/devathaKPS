@@ -39,7 +39,7 @@ const programs = [
     {
         icon: GraduationCap,
         title: "Expanding to Grade 10",
-        desc: "Extension to 10th Standard in progress — serving the growing educational needs of Rampura.",
+        desc: "Extension to 10th Standard in progress - serving the growing educational needs of Rampura.",
         highlight: true,
     },
 ];

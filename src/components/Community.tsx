@@ -42,6 +42,7 @@ export default function Community() {
     return (
         <section
             ref={sectionRef}
+            id="community"
             style={{
                 position: "relative",
                 minHeight: 520,
