@@ -151,7 +151,7 @@ export default function Community() {
                             marginBottom: 20,
                         }}
                     >
-                        Devatha KPS isn&apos;t just a school built in a village - it&apos;s a
+                        Devatha KPS Government Primary School isn&apos;t just a school built in a village - it&apos;s a
                         school built by a village. Every decision reflects the aspirations and
                         needs of Rampura&apos;s families.
                     </p>

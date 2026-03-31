@@ -53,7 +53,7 @@ export default function Footer() {
                                             margin: 0,
                                         }}
                                     >
-                                        Devatha KPS
+                                        Devatha KPS Government Primary School
                                     </h3>
                                 </div>
                             </div>
@@ -99,7 +99,9 @@ export default function Footer() {
                                         margin: 0,
                                     }}
                                 >
-                                    Rampura Village, Karnataka
+                                    Devatha KPS Government Primary School
+                                    <br />
+                                    Rampura Village, Karnataka - 571427
                                     <br />
                                     India
                                 </p>

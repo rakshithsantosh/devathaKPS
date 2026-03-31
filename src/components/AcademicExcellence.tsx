@@ -38,7 +38,7 @@ const programs = [
     },
     {
         icon: GraduationCap,
-        title: "Expanding to Grade 10",
+        title: "Expanding to Standard 10",
         desc: "Extension to 10th Standard in progress - serving the growing educational needs of Rampura.",
         highlight: true,
     },
@@ -101,7 +101,7 @@ export default function AcademicExcellence() {
                                     letterSpacing: "0.02em",
                                 }}
                             >
-                                LKG UKG and Classes 1 – 5 &bull; English Medium
+                                LKG UKG and Standard 1 – 5 &bull; English Medium
                             </span>
                         </div>
                     </div>

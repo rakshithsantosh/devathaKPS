@@ -182,27 +182,30 @@ export default function Hero() {
 
                     {/* Label */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, delay: 0.3, ease: textEase }}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.4, ease: textEase }}
                         style={{
-                            display: "flex",
+                            display: "inline-flex",
                             alignItems: "center",
-                            gap: 12,
-                            marginBottom: 40,
+                            padding: "6px 16px",
+                            backgroundColor: "rgba(20, 14, 10, 0.35)",
+                            backdropFilter: "blur(8px)",
+                            border: "1px solid rgba(244, 180, 150, 0.2)",
+                            borderRadius: 100,
+                            marginBottom: 32,
                             position: "relative",
                         }}
                     >
-                        <div style={{ width: 32, height: 1, backgroundColor: "rgba(244, 180, 150, 0.9)" }} />
+                        <div style={{ width: 6, height: 6, borderRadius: "50%", backgroundColor: "#C65A3A", marginRight: 10 }} />
                         <span
                             style={{
-                                color: "rgba(244, 180, 150, 1)",
+                                color: "rgba(255, 255, 255, 0.95)",
                                 fontFamily: "'Inter', sans-serif",
-                                fontWeight: 700,
-                                fontSize: 13,
-                                letterSpacing: "0.45em",
+                                fontWeight: 600,
+                                fontSize: 10,
+                                letterSpacing: "0.5em",
                                 textTransform: "uppercase" as const,
-                                textShadow: "0 1px 4px rgba(0,0,0,0.4)",
                             }}
                         >
                             Rooted in Rampura
