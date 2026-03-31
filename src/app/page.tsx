@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import LegacyTransformation from "@/components/LegacyTransformation";
 import Story from "@/components/Story";
 import Sustainability from "@/components/Sustainability";
 import AcademicExcellence from "@/components/AcademicExcellence";
@@ -15,6 +16,7 @@ export default function Home() {
     <main className="flex flex-col min-h-screen">
       <Navbar />
       <Hero />
+      <LegacyTransformation />
       <Story />
       <Sustainability />
       <AcademicExcellence />
