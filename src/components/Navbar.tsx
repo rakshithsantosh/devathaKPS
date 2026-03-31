@@ -106,18 +106,18 @@ export default function Navbar() {
                         <span
                             style={{
                                 fontFamily: "'Inter', sans-serif",
-                                fontWeight: 500,
+                                fontWeight: 600,
                                 color: scrolled
-                                    ? "rgba(244, 232, 220, 0.4)"
-                                    : "rgba(255,255,255,0.4)",
-                                fontSize: 9,
-                                letterSpacing: "0.3em",
+                                    ? "rgba(244, 232, 220, 0.7)"
+                                    : "rgba(255, 255, 255, 0.8)",
+                                fontSize: 10,
+                                letterSpacing: "0.25em",
                                 textTransform: "uppercase" as const,
                                 display: "block",
                                 transition: "color 0.4s ease",
                             }}
                         >
-                            Rampura
+                            Rampura - 571427
                         </span>
                     </div>
                 </a>

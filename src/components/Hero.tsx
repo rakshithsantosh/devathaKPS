@@ -193,15 +193,16 @@ export default function Hero() {
                             position: "relative",
                         }}
                     >
-                        <div style={{ width: 32, height: 1, backgroundColor: "rgba(244, 180, 150, 0.8)" }} />
+                        <div style={{ width: 32, height: 1, backgroundColor: "rgba(244, 180, 150, 0.9)" }} />
                         <span
                             style={{
-                                color: "rgba(244, 180, 150, 0.95)",
+                                color: "rgba(244, 180, 150, 1)",
                                 fontFamily: "'Inter', sans-serif",
-                                fontWeight: 600,
-                                fontSize: 12,
-                                letterSpacing: "0.35em",
+                                fontWeight: 700,
+                                fontSize: 13,
+                                letterSpacing: "0.45em",
                                 textTransform: "uppercase" as const,
+                                textShadow: "0 1px 4px rgba(0,0,0,0.4)",
                             }}
                         >
                             Rooted in Rampura
