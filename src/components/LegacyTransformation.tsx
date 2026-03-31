@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 const legacyLines = [
     "What once stood as a humble government school",
@@ -31,23 +31,6 @@ const containerVariants: Variants = {
     }
 };
 
-const blockVariants = (direction: "left" | "right"): Variants => ({
-    hidden: {
-        opacity: 0,
-        x: direction === "left" ? -40 : 40,
-        y: 20
-    },
-    visible: {
-        opacity: 1,
-        x: 0,
-        y: 0,
-        transition: {
-            duration: 1.2,
-            ease: [0.22, 1, 0.36, 1]
-        }
-    }
-});
-
 const lineVariants: Variants = {
     hidden: { opacity: 0, y: 10 },
     visible: {
@@ -74,6 +57,15 @@ const wordVariants: Variants = {
 
 export default function LegacyTransformation() {
     const sectionRef = useRef<HTMLDivElement>(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768);
+        check();
+        window.addEventListener("resize", check);
+        return () => window.removeEventListener("resize", check);
+    }, []);
+
     const { scrollYProgress } = useScroll({
         target: sectionRef,
         offset: ["start end", "end start"]
@@ -90,19 +82,37 @@ export default function LegacyTransformation() {
     const headline = "From Legacy to Transformation";
     const words = headline.split(" ");
 
+    // Mobile-aware block variants: reduce x-offset on small screens
+    const blockVariants = (direction: "left" | "right"): Variants => ({
+        hidden: {
+            opacity: 0,
+            x: isMobile ? 0 : (direction === "left" ? -40 : 40),
+            y: 20
+        },
+        visible: {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            transition: {
+                duration: isMobile ? 0.8 : 1.2,
+                ease: [0.22, 1, 0.36, 1]
+            }
+        }
+    });
+
     return (
         <section 
             ref={sectionRef} 
             id="legacy-transformation" 
             style={{ 
-                padding: "clamp(80px, 12vw, 180px) 0", 
                 backgroundColor: "#FFFFFF",
                 position: "relative",
                 overflowX: "clip"
             }}
+            className="py-16 md:py-24 lg:py-[clamp(80px,12vw,180px)]"
         >
-            {/* Background Parallax Typography */}
-            <div className="absolute inset-0 pointer-events-none select-none overflow-hidden h-full">
+            {/* Background Parallax Typography — hidden on mobile, subtle on desktop */}
+            <div className="absolute inset-0 pointer-events-none select-none overflow-hidden h-full hidden md:block">
                 <motion.div
                     style={{
                         position: "absolute",
@@ -139,24 +149,31 @@ export default function LegacyTransformation() {
                 </motion.div>
             </div>
 
-            <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 48px", position: "relative", zIndex: 1 }}>
+            <div 
+                className="relative z-10 px-5 sm:px-8"
+                style={{ 
+                    maxWidth: isMobile ? "100%" : "80%", 
+                    marginLeft: "auto", 
+                    marginRight: "auto" 
+                }}
+            >
                 {/* Headline with Word Reveal */}
                 <motion.h2
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
+                    className="mb-10 md:mb-16 lg:mb-[clamp(60px,10vw,140px)]"
                     style={{
                         fontFamily: "'Playfair Display', serif",
                         fontWeight: 700,
                         color: "#3E2A23",
-                        fontSize: "clamp(2.2rem, 5vw, 4.5rem)",
-                        lineHeight: 1.1,
-                        marginBottom: "clamp(60px, 10vw, 140px)",
+                        lineHeight: 1.15,
                         textAlign: "center",
                         display: "flex",
                         flexWrap: "wrap",
                         justifyContent: "center",
-                        gap: "0.25em"
+                        gap: "0.25em",
+                        fontSize: "clamp(1.75rem, 5vw, 4.5rem)"
                     }}
                 >
                     {words.map((word, i) => {
@@ -178,8 +195,8 @@ export default function LegacyTransformation() {
                 </motion.h2>
 
                 <div className="relative">
-                    {/* Central Vertical Timeline */}
-                    <div className="absolute left-6 lg:left-1/2 top-0 bottom-0 w-px bg-rgba(62, 42, 35, 0.05) translate-x-[-0.5px]">
+                    {/* Central Vertical Timeline — hidden on mobile, centered on desktop */}
+                    <div className="absolute hidden lg:block lg:left-1/2 top-0 bottom-0 w-px translate-x-[-0.5px]">
                         <motion.div
                             style={{
                                 width: 2,
@@ -208,34 +225,36 @@ export default function LegacyTransformation() {
                         />
                     </div>
 
-                    <div className="space-y-48 lg:space-y-80">
+                    <div className="space-y-12 sm:space-y-16 lg:space-y-80">
                         {/* Legacy Block */}
                         <div className="flex justify-start">
                             <motion.div
                                 initial="hidden"
                                 whileInView="visible"
-                                viewport={{ once: true, margin: "-100px" }}
+                                viewport={{ once: true, margin: "-80px" }}
                                 variants={blockVariants("left")}
-                                className="pl-10 lg:pl-0 lg:pr-24 w-full lg:w-[48%]"
+                                className="lg:pr-24 w-full lg:w-[48%]"
                             >
-                                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-                                    <span style={{ color: "rgba(62, 42, 35, 0.35)", fontSize: 10, fontWeight: 600, letterSpacing: "0.4em", textTransform: "uppercase" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                                    <span className="text-[10px] md:text-[11px] font-semibold tracking-[0.4em] uppercase" style={{ color: "rgba(62, 42, 35, 0.35)" }}>
                                         Chapter I
                                     </span>
                                 </div>
-                                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.75rem, 4vw, 2.25rem)", color: "rgba(62, 42, 35, 0.6)", marginBottom: 24, lineHeight: 1.25 }}>
+                                <h3 
+                                    className="text-xl md:text-2xl lg:text-[clamp(1.75rem,4vw,2.25rem)] mb-4 md:mb-6"
+                                    style={{ fontFamily: "'Playfair Display', serif", color: "rgba(62, 42, 35, 0.6)", lineHeight: 1.3 }}
+                                >
                                     A Humble Beginning
                                 </h3>
-                                <div className="space-y-3">
+                                <div className="space-y-2 md:space-y-3 max-w-prose">
                                     {legacyLines.map((line, i) => (
                                         <motion.p
                                             key={i}
                                             variants={lineVariants}
+                                            className="text-[0.935rem] md:text-base lg:text-[clamp(1rem,2vw,1.25rem)] leading-relaxed md:leading-[1.7]"
                                             style={{
                                                 fontFamily: "'Inter', sans-serif",
                                                 color: "#7B736C",
-                                                fontSize: "clamp(1rem, 2vw, 1.25rem)",
-                                                lineHeight: 1.7,
                                                 fontWeight: 400,
                                             }}
                                         >
@@ -268,28 +287,30 @@ export default function LegacyTransformation() {
                             <motion.div
                                 initial="hidden"
                                 whileInView="visible"
-                                viewport={{ once: true, margin: "-100px" }}
+                                viewport={{ once: true, margin: "-80px" }}
                                 variants={blockVariants("right")}
-                                className="pl-10 lg:pl-24 w-full lg:w-[48%]"
+                                className="lg:pl-24 w-full lg:w-[48%]"
                             >
-                                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-                                    <span style={{ color: "#C65A3A", fontSize: 10, fontWeight: 700, letterSpacing: "0.4em", textTransform: "uppercase" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                                    <span className="text-[10px] md:text-[11px] font-bold tracking-[0.4em] uppercase" style={{ color: "#C65A3A" }}>
                                         Chapter II
                                     </span>
                                 </div>
-                                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 5vw, 2.75rem)", color: "#3E2A23", fontWeight: 700, marginBottom: 24, lineHeight: 1.25 }}>
+                                <h3 
+                                    className="text-2xl md:text-3xl lg:text-[clamp(2rem,5vw,2.75rem)] mb-4 md:mb-6 font-bold"
+                                    style={{ fontFamily: "'Playfair Display', serif", color: "#3E2A23", lineHeight: 1.3 }}
+                                >
                                     The Transformation
                                 </h3>
-                                <div className="space-y-3">
+                                <div className="space-y-2 md:space-y-3 max-w-prose">
                                     {transformationLines.map((line, i) => (
                                         <motion.p
                                             key={i}
                                             variants={lineVariants}
+                                            className="text-[0.935rem] md:text-base lg:text-[clamp(1.1rem,2.5vw,1.35rem)] leading-relaxed md:leading-[1.7]"
                                             style={{
                                                 fontFamily: "'Inter', sans-serif",
                                                 color: "#3E2A23",
-                                                fontSize: "clamp(1.1rem, 2.5vw, 1.35rem)",
-                                                lineHeight: 1.7,
                                                 fontWeight: 500,
                                             }}
                                         >
