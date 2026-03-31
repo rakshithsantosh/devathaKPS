@@ -162,9 +162,9 @@ export default function Hero() {
             <div
                 ref={contentRef}
                 className="relative z-20 w-full max-w-7xl mx-auto"
-                style={{ paddingLeft: 42, paddingRight: 32, paddingTop: 0, paddingBottom: 0 }}
+                style={{ padding: "0 clamp(20px, 5vw, 42px)" }}
             >
-                <div className="max-w-2xl pt-24">
+                <div className="max-w-2xl pt-24 pt-sm-32">
                     {/* Glass text backing — anchors left content compositionally */}
                     <div
                         style={{

@@ -91,30 +91,31 @@ export default function LegacyTransformation() {
     const words = headline.split(" ");
 
     return (
-        <section
-            ref={sectionRef}
-            id="legacy-transformation"
-            style={{
-                padding: "180px 0",
+        <section 
+            ref={sectionRef} 
+            id="legacy-transformation" 
+            style={{ 
+                padding: "clamp(80px, 12vw, 180px) 0", 
                 backgroundColor: "#FFFFFF",
                 position: "relative",
-                overflow: "hidden"
+                overflowX: "clip"
             }}
         >
             {/* Background Parallax Typography */}
-            <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none select-none overflow-hidden h-full">
                 <motion.div
                     style={{
                         position: "absolute",
-                        top: "15%",
-                        left: "5%",
+                        top: "10%",
+                        left: "-5%",
                         fontFamily: "'Playfair Display', serif",
-                        fontSize: "clamp(8rem, 20vw, 15rem)",
+                        fontSize: "clamp(5rem, 20vw, 16rem)",
                         fontWeight: 900,
                         color: "rgba(62, 42, 35, 0.03)",
                         lineHeight: 1,
                         y: legacyY,
-                        zIndex: 0
+                        zIndex: 0,
+                        whiteSpace: "nowrap"
                     }}
                 >
                     LEGACY
@@ -122,15 +123,16 @@ export default function LegacyTransformation() {
                 <motion.div
                     style={{
                         position: "absolute",
-                        bottom: "10%",
-                        right: "5%",
+                        bottom: "5%",
+                        right: "-5%",
                         fontFamily: "'Playfair Display', serif",
-                        fontSize: "clamp(8rem, 20vw, 15rem)",
+                        fontSize: "clamp(5rem, 20vw, 16rem)",
                         fontWeight: 900,
                         color: "rgba(198, 90, 58, 0.03)",
                         lineHeight: 1,
                         y: transformationY,
-                        zIndex: 0
+                        zIndex: 0,
+                        whiteSpace: "nowrap"
                     }}
                 >
                     CHANGE
@@ -208,23 +210,23 @@ export default function LegacyTransformation() {
 
                     <div className="space-y-48 lg:space-y-80">
                         {/* Legacy Block */}
-                        <div className="flex justify-start lg:justify-start">
+                        <div className="flex justify-start">
                             <motion.div
                                 initial="hidden"
                                 whileInView="visible"
-                                viewport={{ once: true, margin: "-150px" }}
+                                viewport={{ once: true, margin: "-100px" }}
                                 variants={blockVariants("left")}
-                                className="pl-12 lg:pl-0 lg:pr-24 w-full lg:w-[45%]"
+                                className="pl-10 lg:pl-0 lg:pr-24 w-full lg:w-[48%]"
                             >
-                                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-                                    <span style={{ color: "rgba(62, 42, 35, 0.35)", fontSize: 11, fontWeight: 600, letterSpacing: "0.4em", textTransform: "uppercase" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                                    <span style={{ color: "rgba(62, 42, 35, 0.35)", fontSize: 10, fontWeight: 600, letterSpacing: "0.4em", textTransform: "uppercase" }}>
                                         Chapter I
                                     </span>
                                 </div>
-                                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, color: "rgba(62, 42, 35, 0.6)", marginBottom: 32 }}>
+                                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.75rem, 4vw, 2.25rem)", color: "rgba(62, 42, 35, 0.6)", marginBottom: 24, lineHeight: 1.25 }}>
                                     A Humble Beginning
                                 </h3>
-                                <div className="space-y-4">
+                                <div className="space-y-3">
                                     {legacyLines.map((line, i) => (
                                         <motion.p
                                             key={i}
@@ -232,8 +234,8 @@ export default function LegacyTransformation() {
                                             style={{
                                                 fontFamily: "'Inter', sans-serif",
                                                 color: "#7B736C",
-                                                fontSize: 20,
-                                                lineHeight: 1.6,
+                                                fontSize: "clamp(1rem, 2vw, 1.25rem)",
+                                                lineHeight: 1.7,
                                                 fontWeight: 400,
                                             }}
                                         >
@@ -266,19 +268,19 @@ export default function LegacyTransformation() {
                             <motion.div
                                 initial="hidden"
                                 whileInView="visible"
-                                viewport={{ once: true, margin: "-150px" }}
+                                viewport={{ once: true, margin: "-100px" }}
                                 variants={blockVariants("right")}
-                                className="pl-12 lg:pl-24 w-full lg:w-[45%]"
+                                className="pl-10 lg:pl-24 w-full lg:w-[48%]"
                             >
-                                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-                                    <span style={{ color: "#C65A3A", fontSize: 11, fontWeight: 700, letterSpacing: "0.4em", textTransform: "uppercase" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                                    <span style={{ color: "#C65A3A", fontSize: 10, fontWeight: 700, letterSpacing: "0.4em", textTransform: "uppercase" }}>
                                         Chapter II
                                     </span>
                                 </div>
-                                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, color: "#3E2A23", fontWeight: 700, marginBottom: 32 }}>
+                                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 5vw, 2.75rem)", color: "#3E2A23", fontWeight: 700, marginBottom: 24, lineHeight: 1.25 }}>
                                     The Transformation
                                 </h3>
-                                <div className="space-y-4">
+                                <div className="space-y-3">
                                     {transformationLines.map((line, i) => (
                                         <motion.p
                                             key={i}
@@ -286,8 +288,8 @@ export default function LegacyTransformation() {
                                             style={{
                                                 fontFamily: "'Inter', sans-serif",
                                                 color: "#3E2A23",
-                                                fontSize: 20,
-                                                lineHeight: 1.6,
+                                                fontSize: "clamp(1.1rem, 2.5vw, 1.35rem)",
+                                                lineHeight: 1.7,
                                                 fontWeight: 500,
                                             }}
                                         >

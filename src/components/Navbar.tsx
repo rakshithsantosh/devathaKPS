@@ -52,7 +52,9 @@ export default function Navbar() {
                 style={{
                     maxWidth: 1280,
                     margin: "0 auto",
-                    padding: scrolled ? "10px 48px" : "16px 48px",
+                    padding: scrolled 
+                        ? "clamp(8px, 1.5vw, 10px) clamp(20px, 4vw, 48px)" 
+                        : "clamp(12px, 2vw, 16px) clamp(20px, 4vw, 48px)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
@@ -95,13 +97,13 @@ export default function Navbar() {
                                 fontFamily: "'Playfair Display', serif",
                                 fontWeight: 700,
                                 color: "#FFFFFF",
-                                fontSize: 16,
+                                fontSize: "clamp(13px, 3vw, 16px)",
                                 display: "block",
                                 lineHeight: 1.2,
                                 letterSpacing: "0.02em",
                             }}
                         >
-                            DEVATHA KPS Government Primary School
+                            DEVATHA KPS <span className="hidden sm:inline">Government Primary School</span>
                         </span>
                         <span
                             style={{
@@ -194,7 +196,7 @@ export default function Navbar() {
                             borderTop: "1px solid rgba(244, 232, 220, 0.06)",
                         }}
                     >
-                        <div style={{ padding: "16px 48px 28px" }}>
+                        <div style={{ padding: "16px clamp(20px, 4vw, 48px) 28px" }}>
                             {links.map((link, i) => (
                                 <motion.a
                                     key={link.label}
