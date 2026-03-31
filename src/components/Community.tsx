@@ -136,7 +136,7 @@ export default function Community() {
                         }}
                     >
                         Born from{" "}
-                        <span style={{ fontWeight: 400, fontStyle: "italic", color: "rgba(255,255,255,0.55)" }}>
+                        <span style={{ fontWeight: 400, fontStyle: "italic", color: "rgba(255,255,255,0.85)" }}>
                             Rampura
                         </span>
                     </h2>
@@ -144,10 +144,10 @@ export default function Community() {
                     <p
                         style={{
                             fontFamily: "'Inter', sans-serif",
-                            color: "rgba(255,255,255,0.6)",
+                            color: "rgba(255,255,255,0.9)",
                             fontSize: 17,
                             lineHeight: 1.85,
-                            fontWeight: 300,
+                            fontWeight: 400,
                             marginBottom: 20,
                         }}
                     >
@@ -159,10 +159,10 @@ export default function Community() {
                     <p
                         style={{
                             fontFamily: "'Inter', sans-serif",
-                            color: "rgba(255,255,255,0.42)",
+                            color: "rgba(255,255,255,0.75)",
                             fontSize: 14,
                             lineHeight: 1.8,
-                            fontWeight: 300,
+                            fontWeight: 400,
                         }}
                     >
                         From the architecture to the curriculum, this is a place where the

@@ -17,14 +17,14 @@ const programs = [
         desc: "Building confidence and global readiness through strong linguistic foundations from Grade 1.",
     },
     {
-        icon: FlaskConical,
-        title: "Science Laboratory",
-        desc: "Hands-on practical discovery and scientific exploration for curious young minds.",
+        icon: Monitor,
+        title: "ನಮ್ಮ ಕನ್ನಡ, ನಮ್ಮ ಗುರುತು",
+        desc: "Encouraging the use of Kannada as a symbol of pride, fostering deeper community roots and preserving our rich cultural heritage.",
     },
     {
-        icon: Monitor,
-        title: "Computer Lab",
-        desc: "Digital literacy as a core skill, preparing students for the modern technological era.",
+        icon: FlaskConical,
+        title: "Science Laboratory and Computer Lab",
+        desc: "As part of our expansion to classes 6-10, we are setting up a state-of-the-art science laboratory and computer laboratory",
     },
     {
         icon: Library,
@@ -78,7 +78,7 @@ export default function AcademicExcellence() {
                                 }}
                             >
                                 Academic{" "}
-                                <span style={{ fontWeight: 400, color: "rgba(62, 42, 35, 0.45)" }}>
+                                <span style={{ fontWeight: 400, color: "rgba(62, 42, 35, 0.7)" }}>
                                     Excellence
                                 </span>
                             </h2>
@@ -101,7 +101,7 @@ export default function AcademicExcellence() {
                                     letterSpacing: "0.02em",
                                 }}
                             >
-                                Classes 1 – 5 &bull; English Medium
+                                LKG UKG and Classes 1 – 5 &bull; English Medium
                             </span>
                         </div>
                     </div>

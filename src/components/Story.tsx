@@ -10,8 +10,8 @@ import ScrollReveal from "./ScrollReveal";
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
+    { value: "LKG & UKG", label: "Foundation Years" },
     { value: "1–5", label: "Grades Offered" },
-    { value: "30", label: "Students per Class" },
     { value: "100%", label: "Sustainable Materials", accent: true },
     { value: "10th", label: "Expansion Coming" },
 ];

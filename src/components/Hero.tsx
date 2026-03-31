@@ -174,9 +174,8 @@ export default function Hero() {
                             bottom: 32,
                             width: "calc(100% + 64px)",
                             background:
-                                "linear-gradient(135deg, rgba(30,20,14,0.12) 0%, rgba(30,20,14,0.04) 60%, transparent 100%)",
+                                "linear-gradient(135deg, rgba(15,10,6,0.45) 0%, rgba(15,10,6,0.15) 60%, transparent 100%)",
                             borderRadius: 32,
-                            backdropFilter: "blur(0.5px)",
                             pointerEvents: "none",
                         }}
                     />
@@ -223,7 +222,7 @@ export default function Hero() {
                             letterSpacing: "-0.02em",
                             marginBottom: 28,
                             position: "relative",
-                            textShadow: "0 2px 20px rgba(20,14,10,0.15)",
+                            textShadow: "0 2px 10px rgba(0,0,0,0.45)",
                         }}
                     >
                         A New Era of
@@ -233,7 +232,7 @@ export default function Hero() {
                             style={{
                                 fontWeight: 400,
                                 fontStyle: "italic",
-                                color: "rgba(255, 252, 245, 0.65)",
+                                color: "rgba(255, 252, 245, 0.9)",
                             }}
                         >
                             in Rampura
@@ -246,9 +245,9 @@ export default function Hero() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.7, ease: textEase }}
                         style={{
-                            color: "rgba(255, 252, 245, 0.55)",
+                            color: "rgba(255, 255, 255, 0.95)",
                             fontFamily: "'Inter', sans-serif",
-                            fontWeight: 300,
+                            fontWeight: 450,
                             fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
                             lineHeight: 1.75,
                             maxWidth: 420,
@@ -256,7 +255,7 @@ export default function Hero() {
                             position: "relative",
                         }}
                     >
-                        Modern, sustainable education rooted in community values and
+                        Where public education meets private innovation - delivering modern, sustainable learning rooted in community values and
                         responsible architecture.
                     </motion.p>
 
