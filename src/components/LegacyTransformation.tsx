@@ -11,115 +11,234 @@ const fadeUp: Variants = {
     },
 };
 
+const fadeUpDelay: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: "easeOut", delay: 0.15 },
+    },
+};
+
 export default function LegacyTransformation() {
     return (
-        <section
-            className="py-16 md:py-24"
-            style={{ backgroundColor: "#FAFAF8" }}
-        >
-            {/* Header */}
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center mb-12">
+        <>
+            <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+        .lt-grid {
+          display: grid;
+          grid-template-columns: 1fr 1px 1fr;
+          align-items: start;
+          max-width: 860px;
+          margin: 0 auto;
+        }
+        .lt-vsep {
+          background: linear-gradient(to bottom, transparent, #D9C8BF 15%, #D9C8BF 85%, transparent);
+        }
+        .lt-hsep {
+          display: none;
+        }
+        .lt-col {
+          padding: 0 2.25rem;
+        }
+        .lt-col:first-child {
+          padding-left: 0;
+        }
+        .lt-col:last-child {
+          padding-right: 0;
+        }
+        .lt-meta {
+          display: flex;
+          align-items: center;
+          gap: 9px;
+          margin-bottom: 1.1rem;
+        }
+        .lt-tag {
+          display: inline-block;
+          font-size: 11px;
+          font-weight: 500;
+          padding: 3px 11px;
+          border-radius: 20px;
+          border: 1px solid #D9C8BF;
+          color: #7B5C52;
+          margin-top: 1.1rem;
+          letter-spacing: 0.04em;
+        }
+
+        @media (max-width: 640px) {
+          .lt-grid {
+            grid-template-columns: 1fr;
+          }
+          .lt-vsep {
+            display: none;
+          }
+          .lt-hsep {
+            display: block;
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #D9C8BF 20%, #D9C8BF 80%, transparent);
+            margin: 2rem auto;
+          }
+          .lt-col {
+            padding: 0;
+            text-align: center;
+          }
+          .lt-meta {
+            justify-content: center;
+          }
+        }
+      `}</style>
+
+            <section
+                style={{
+                    backgroundColor: "#FAFAF8",
+                    fontFamily: "'DM Sans', sans-serif",
+                    padding: "3.5rem 1.5rem",
+                }}
+            >
+                {/* Header */}
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
                     variants={fadeUp}
+                    style={{ textAlign: "center", marginBottom: "3rem" }}
                 >
-                    <p className="text-[11px] tracking-[0.2em] uppercase text-[#C65A3A] mb-3 font-semibold">
+                    <p
+                        style={{
+                            fontSize: 10,
+                            letterSpacing: "0.22em",
+                            textTransform: "uppercase",
+                            color: "#C65A3A",
+                            fontWeight: 600,
+                            margin: "0 0 0.75rem",
+                        }}
+                    >
                         Our Journey
                     </p>
-
                     <h2
-                        className="text-3xl sm:text-3xl md:text-4xl font-semibold"
                         style={{
                             fontFamily: "'Playfair Display', serif",
+                            fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
                             color: "#3E2A23",
+                            fontWeight: 600,
+                            lineHeight: 1.15,
+                            margin: 0,
                         }}
                     >
                         From Legacy to Transformation
                     </h2>
+                    <div
+                        style={{
+                            width: 36,
+                            height: 2,
+                            background: "#C65A3A",
+                            opacity: 0.55,
+                            borderRadius: 2,
+                            margin: "1.1rem auto 0",
+                        }}
+                    />
                 </motion.div>
-            </div>
 
-            {/* Content Container */}
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:block overflow-hidden pb-4">
+                {/* Grid */}
+                <div className="lt-grid">
 
-                {/* 
-                  Mobile Timeline Container - Adds vertical spacing, rhythm, 
-                  and the subtle connector line *only* visible on mobile 
-                */}
-                <div className="relative flex flex-col gap-12 md:grid md:grid-cols-2 md:gap-6 pt-[20px] md:pt-0 pb-[20px] md:pb-0 z-0">
-
-                    {/* Removed Mobile Only Vertical Timeline Line Connector for Centered Layout */}
-
-                    {/* CHAPTER 1 */}
+                    {/* Chapter 1 */}
                     <motion.div
-                        variants={fadeUp}
+                        className="lt-col"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, margin: "-50px" }}
-                        className="relative bg-white/50 md:bg-white rounded-2xl p-6 md:p-8 border border-neutral-100 md:border-neutral-200 shadow-[0_4px_24px_rgba(0,0,0,0.02)] md:shadow-none backdrop-blur-sm"
+                        variants={fadeUp}
                     >
-                        <div className="flex flex-col gap-4 text-center md:text-left items-center md:items-start">
-                            {/* Chapter Label */}
-                            <div className="inline-flex items-center gap-4">
-                                <span className="text-[10px] md:text-xs tracking-[0.15em] text-[#C65A3A] uppercase font-medium">
-                                    01 / Foundation
-                                </span>
-                            </div>
-
-                            {/* Heading */}
-                            <h3 className="text-[26px] md:text-2xl font-semibold text-[#3E2A23] leading-[1.2] tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-                                A Humble Beginning
-                            </h3>
-
-                            {/* Paragraph */}
-                            <p className="text-sm md:text-base leading-[1.8] text-neutral-600 max-w-[60ch] font-light">
-                                What once stood as a humble government school has been reimagined
-                                through the vision of the Devatha Krishna Prasad family — rooted
-                                deeply in the values of giving back to society.
-                            </p>
+                        <div className="lt-meta">
+                            <span style={{ fontSize: 11, fontWeight: 500, color: "#C65A3A" }}>01</span>
+                            <div style={{ width: 18, height: 1, background: "#D9C8BF" }} />
+                            <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.16em", color: "#9E8E85", fontWeight: 500 }}>
+                                Foundation
+                            </span>
                         </div>
+
+                        <h3
+                            style={{
+                                fontFamily: "'Playfair Display', serif",
+                                fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)",
+                                color: "#3E2A23",
+                                fontWeight: 600,
+                                lineHeight: 1.2,
+                                margin: "0 0 0.9rem",
+                            }}
+                        >
+                            A Humble Beginning
+                        </h3>
+
+                        <p style={{ fontSize: 14, lineHeight: 1.85, color: "#6B5E57", fontWeight: 300, margin: 0 }}>
+                            What once stood as a humble government school has been reimagined
+                            through the vision of the Devatha Krishna Prasad family - rooted
+                            deeply in the values of giving back to society.
+                        </p>
+
+                        <span className="lt-tag">Est. Legacy</span>
                     </motion.div>
 
-                    {/* CHAPTER 2 */}
+                    {/* Vertical separator (desktop) */}
+                    <div className="lt-vsep" />
+
+                    {/* Chapter 2 */}
                     <motion.div
-                        variants={fadeUp}
+                        className="lt-col"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, margin: "-50px" }}
-                        className="relative bg-white/80 md:bg-white rounded-2xl p-6 md:p-8 border border-neutral-100 md:border-neutral-200 shadow-[0_8px_32px_rgba(0,0,0,0.04)] md:shadow-none backdrop-blur-sm"
+                        variants={fadeUpDelay}
                     >
-                        <div className="flex flex-col gap-4 text-center md:text-left items-center md:items-start">
-                            {/* Chapter Label */}
-                            <div className="inline-flex items-center gap-4">
-                                <span className="text-[10px] md:text-xs tracking-[0.15em] text-[#7B736C] uppercase font-medium">
-                                    02 / Evolution
-                                </span>
-                            </div>
+                        {/* Horizontal separator (mobile only) — inside col so it stacks correctly */}
+                        <div className="lt-hsep" />
 
-                            {/* Heading */}
-                            <h3 className="text-[26px] md:text-2xl font-semibold text-[#3E2A23] leading-[1.2] tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-                                The New Chapter
-                            </h3>
-
-                            {/* Paragraphs */}
-                            <p className="text-sm md:text-base leading-[1.8] text-neutral-600 max-w-[60ch] font-light">
-                                Today, it stands renewed with modern <span className="text-[#3E2A23] font-medium">infrastructure</span>, rooted
-                                thinking in values, and updated mediums of instruction.
-                                Equipped with contemporary tools and dedicated faculty, the
-                                institution is committed to delivering quality education.
-                            </p>
-
-                            <p className="text-sm md:text-base leading-[1.8] text-neutral-600 max-w-[60ch] font-light">
-                                This <span className="text-[#C65A3A] font-medium">transformation</span> is built to serve deserving students in and
-                                around Rampura Village — creating <span className="text-[#3E2A23] font-medium">opportunities</span>, not just classrooms.
-                            </p>
+                        <div className="lt-meta">
+                            <span style={{ fontSize: 11, fontWeight: 500, color: "#9E8E85" }}>02</span>
+                            <div style={{ width: 18, height: 1, background: "#D9C8BF" }} />
+                            <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.16em", color: "#9E8E85", fontWeight: 500 }}>
+                                Evolution
+                            </span>
                         </div>
+
+                        <h3
+                            style={{
+                                fontFamily: "'Playfair Display', serif",
+                                fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)",
+                                color: "#3E2A23",
+                                fontWeight: 600,
+                                lineHeight: 1.2,
+                                margin: "0 0 0.9rem",
+                            }}
+                        >
+                            The New Chapter
+                        </h3>
+
+                        <p style={{ fontSize: 14, lineHeight: 1.85, color: "#6B5E57", fontWeight: 300, margin: "0 0 0.8rem" }}>
+                            Today, it stands renewed with modern{" "}
+                            <span style={{ color: "#3E2A23", fontWeight: 500 }}>infrastructure</span>,
+                            rooted thinking in values, and updated mediums of instruction.
+                            Equipped with contemporary tools and dedicated faculty, the
+                            institution is committed to delivering quality education.
+                        </p>
+
+                        <p style={{ fontSize: 14, lineHeight: 1.85, color: "#6B5E57", fontWeight: 300, margin: 0 }}>
+                            This{" "}
+                            <span style={{ color: "#C65A3A", fontWeight: 500 }}>transformation</span>{" "}
+                            is built to serve deserving students in and around Rampura Village —
+                            creating{" "}
+                            <span style={{ color: "#3E2A23", fontWeight: 500 }}>opportunities</span>,
+                            not just classrooms.
+                        </p>
+
+                        <span className="lt-tag">Present Day</span>
                     </motion.div>
 
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 }
