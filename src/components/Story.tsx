@@ -180,7 +180,7 @@ export default function Story() {
                                 marginBottom: 16,
                             }}
                         >
-                            Devatha KPS was born from a vision to provide world-class
+                            Devatha KPS Government Primary School was born from a vision to provide world-class
                             education in a rural setting. Every wall, corridor, and classroom
                             has been designed with purpose.
                         </p>
