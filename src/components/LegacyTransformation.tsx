@@ -228,7 +228,7 @@ export default function LegacyTransformation() {
                         <p style={{ fontSize: 14, lineHeight: 1.85, color: "#6B5E57", fontWeight: 300, margin: 0 }}>
                             This{" "}
                             <span style={{ color: "#C65A3A", fontWeight: 500 }}>transformation</span>{" "}
-                            is built to serve deserving students in and around Rampura Village —
+                            is built to serve deserving students in and around Rampura Village -
                             creating{" "}
                             <span style={{ color: "#3E2A23", fontWeight: 500 }}>opportunities</span>,
                             not just classrooms.
