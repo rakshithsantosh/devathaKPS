@@ -1,346 +1,123 @@
 "use client";
 
-import { motion, useScroll, useTransform, Variants } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { motion, Variants } from "framer-motion";
 
-const legacyLines = [
-    "What once stood as a humble government school",
-    "has been reimagined through the vision",
-    "of the Devatha Krishna Prasad family -",
-    "rooted deeply in the values of giving back to society."
-];
-
-const transformationLines = [
-    "Today, it stands renewed with modern infrastructure,",
-    "rooted thinking in values, and updated mediums of instruction.",
-    "Equipped with contemporary tools and dedicated faculty,",
-    "the institution is committed to delivering quality education.",
-    "This transformation is built to serve deserving students",
-    "in and around Rampura Village -",
-    "creating opportunities, not just classrooms."
-];
-
-const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.2
-        }
-    }
-};
-
-const lineVariants: Variants = {
-    hidden: { opacity: 0, y: 10 },
+const fadeUp: Variants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
-        transition: {
-            duration: 0.8,
-            ease: "easeOut"
-        }
-    }
-};
-
-const wordVariants: Variants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.6,
-            ease: [0.22, 1, 0.36, 1]
-        }
-    }
+        transition: { duration: 0.6, ease: "easeOut" },
+    },
 };
 
 export default function LegacyTransformation() {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const check = () => setIsMobile(window.innerWidth < 768);
-        check();
-        window.addEventListener("resize", check);
-        return () => window.removeEventListener("resize", check);
-    }, []);
-
-    const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start end", "end start"]
-    });
-
-    // Parallax background text
-    const legacyY = useTransform(scrollYProgress, [0, 1], [0, -150]);
-    const transformationY = useTransform(scrollYProgress, [0, 1], [0, -250]);
-
-    // Timeline growth
-    const timelineScaleY = useTransform(scrollYProgress, [0.1, 0.7], [0, 1]);
-    const dotOpacity = useTransform(scrollYProgress, [0.1, 0.15], [0, 1]);
-
-    const headline = "From Legacy to Transformation";
-    const words = headline.split(" ");
-
-    // Mobile-aware block variants: reduce x-offset on small screens
-    const blockVariants = (direction: "left" | "right"): Variants => ({
-        hidden: {
-            opacity: 0,
-            x: isMobile ? 0 : (direction === "left" ? -40 : 40),
-            y: 20
-        },
-        visible: {
-            opacity: 1,
-            x: 0,
-            y: 0,
-            transition: {
-                duration: isMobile ? 0.8 : 1.2,
-                ease: [0.22, 1, 0.36, 1]
-            }
-        }
-    });
-
     return (
-        <section 
-            ref={sectionRef} 
-            id="legacy-transformation" 
-            style={{ 
-                backgroundColor: "#FFFFFF",
-                position: "relative",
-                overflowX: "clip"
-            }}
-            className="py-16 md:py-24 lg:py-[clamp(80px,12vw,180px)]"
+        <section
+            className="py-16 md:py-24"
+            style={{ backgroundColor: "#FAFAF8" }}
         >
-            {/* Background Parallax Typography — hidden on mobile, subtle on desktop */}
-            <div className="absolute inset-0 pointer-events-none select-none overflow-hidden h-full hidden md:block">
+            {/* Header */}
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center mb-12">
                 <motion.div
-                    style={{
-                        position: "absolute",
-                        top: "10%",
-                        left: "-5%",
-                        fontFamily: "'Playfair Display', serif",
-                        fontSize: "clamp(5rem, 20vw, 16rem)",
-                        fontWeight: 900,
-                        color: "rgba(62, 42, 35, 0.03)",
-                        lineHeight: 1,
-                        y: legacyY,
-                        zIndex: 0,
-                        whiteSpace: "nowrap"
-                    }}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeUp}
                 >
-                    LEGACY
-                </motion.div>
-                <motion.div
-                    style={{
-                        position: "absolute",
-                        bottom: "5%",
-                        right: "-5%",
-                        fontFamily: "'Playfair Display', serif",
-                        fontSize: "clamp(5rem, 20vw, 16rem)",
-                        fontWeight: 900,
-                        color: "rgba(198, 90, 58, 0.03)",
-                        lineHeight: 1,
-                        y: transformationY,
-                        zIndex: 0,
-                        whiteSpace: "nowrap"
-                    }}
-                >
-                    CHANGE
+                    <p className="text-[11px] tracking-[0.2em] uppercase text-[#C65A3A] mb-3 font-semibold">
+                        Our Journey
+                    </p>
+
+                    <h2
+                        className="text-3xl sm:text-3xl md:text-4xl font-semibold"
+                        style={{
+                            fontFamily: "'Playfair Display', serif",
+                            color: "#3E2A23",
+                        }}
+                    >
+                        From Legacy to Transformation
+                    </h2>
                 </motion.div>
             </div>
 
-            <div 
-                className="relative z-10 px-5 sm:px-8"
-                style={{ 
-                    maxWidth: isMobile ? "100%" : "80%", 
-                    marginLeft: "auto", 
-                    marginRight: "auto" 
-                }}
-            >
-                {/* Headline with Word Reveal */}
-                <motion.h2
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="mb-10 md:mb-16 lg:mb-[clamp(60px,10vw,140px)]"
-                    style={{
-                        fontFamily: "'Playfair Display', serif",
-                        fontWeight: 700,
-                        color: "#3E2A23",
-                        lineHeight: 1.15,
-                        textAlign: "center",
-                        display: "flex",
-                        flexWrap: "wrap",
-                        justifyContent: "center",
-                        gap: "0.25em",
-                        fontSize: "clamp(1.75rem, 5vw, 4.5rem)"
-                    }}
-                >
-                    {words.map((word, i) => {
-                        const isMuted = word === "Legacy";
-                        const isHighlighted = word === "Transformation";
-                        return (
-                            <motion.span
-                                key={i}
-                                variants={wordVariants}
-                                style={{
-                                    display: "inline-block",
-                                    color: isMuted ? "rgba(62, 42, 35, 0.4)" : isHighlighted ? "#C65A3A" : "inherit"
-                                }}
-                            >
-                                {word}
-                            </motion.span>
-                        );
-                    })}
-                </motion.h2>
+            {/* Content Container */}
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:block overflow-hidden pb-4">
 
-                <div className="relative">
-                    {/* Central Vertical Timeline — hidden on mobile, centered on desktop */}
-                    <div className="absolute hidden lg:block lg:left-1/2 top-0 bottom-0 w-px translate-x-[-0.5px]">
-                        <motion.div
-                            style={{
-                                width: 2,
-                                height: "100%",
-                                backgroundColor: "rgba(62, 42, 35, 0.15)",
-                                scaleY: timelineScaleY,
-                                originY: 0
-                            }}
-                        />
-                        {/* Pulsing Dot */}
-                        <motion.div
-                            style={{
-                                position: "absolute",
-                                top: 0,
-                                left: "50%",
-                                width: 8,
-                                height: 8,
-                                borderRadius: "50%",
-                                backgroundColor: "#3E2A23",
-                                transform: "translateX(-50%)",
-                                opacity: dotOpacity,
-                                boxShadow: "0 0 0 4px rgba(62, 42, 35, 0.1)"
-                            }}
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{ repeat: Infinity, duration: 2 }}
-                        />
-                    </div>
+                {/* 
+                  Mobile Timeline Container - Adds vertical spacing, rhythm, 
+                  and the subtle connector line *only* visible on mobile 
+                */}
+                <div className="relative flex flex-col gap-12 md:grid md:grid-cols-2 md:gap-6 pt-[20px] md:pt-0 pb-[20px] md:pb-0 z-0">
 
-                    <div className="space-y-12 sm:space-y-16 lg:space-y-80">
-                        {/* Legacy Block */}
-                        <div className="flex justify-start">
-                            <motion.div
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true, margin: "-80px" }}
-                                variants={blockVariants("left")}
-                                className="lg:pr-24 w-full lg:w-[48%]"
-                            >
-                                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-                                    <span className="text-[10px] md:text-[11px] font-semibold tracking-[0.4em] uppercase" style={{ color: "rgba(62, 42, 35, 0.35)" }}>
-                                        Chapter I
-                                    </span>
-                                </div>
-                                <h3 
-                                    className="text-xl md:text-2xl lg:text-[clamp(1.75rem,4vw,2.25rem)] mb-4 md:mb-6"
-                                    style={{ fontFamily: "'Playfair Display', serif", color: "rgba(62, 42, 35, 0.6)", lineHeight: 1.3 }}
-                                >
-                                    A Humble Beginning
-                                </h3>
-                                <div className="space-y-2 md:space-y-3 max-w-prose">
-                                    {legacyLines.map((line, i) => (
-                                        <motion.p
-                                            key={i}
-                                            variants={lineVariants}
-                                            className="text-[0.935rem] md:text-base lg:text-[clamp(1rem,2vw,1.25rem)] leading-relaxed md:leading-[1.7]"
-                                            style={{
-                                                fontFamily: "'Inter', sans-serif",
-                                                color: "#7B736C",
-                                                fontWeight: 400,
-                                            }}
-                                        >
-                                            {line.split(" ").map((word, idx) => {
-                                                const isHighlight = word.includes("society");
-                                                return (
-                                                    <motion.span
-                                                        key={idx}
-                                                        whileHover={{ color: "#3E2A23" }}
-                                                        style={{
-                                                            display: "inline-block",
-                                                            marginRight: "0.25em",
-                                                            color: isHighlight ? "#3E2A23" : "inherit",
-                                                            fontWeight: isHighlight ? 500 : 400,
-                                                            transition: "color 0.3s ease"
-                                                        }}
-                                                    >
-                                                        {word}
-                                                    </motion.span>
-                                                );
-                                            })}
-                                        </motion.p>
-                                    ))}
-                                </div>
-                            </motion.div>
+                    {/* Removed Mobile Only Vertical Timeline Line Connector for Centered Layout */}
+
+                    {/* CHAPTER 1 */}
+                    <motion.div
+                        variants={fadeUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-50px" }}
+                        className="relative bg-white/50 md:bg-white rounded-2xl p-6 md:p-8 border border-neutral-100 md:border-neutral-200 shadow-[0_4px_24px_rgba(0,0,0,0.02)] md:shadow-none backdrop-blur-sm"
+                    >
+                        <div className="flex flex-col gap-4 text-center md:text-left items-center md:items-start">
+                            {/* Chapter Label */}
+                            <div className="inline-flex items-center gap-4">
+                                <span className="text-[10px] md:text-xs tracking-[0.15em] text-[#C65A3A] uppercase font-medium">
+                                    01 / Foundation
+                                </span>
+                            </div>
+
+                            {/* Heading */}
+                            <h3 className="text-[26px] md:text-2xl font-semibold text-[#3E2A23] leading-[1.2] tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+                                A Humble Beginning
+                            </h3>
+
+                            {/* Paragraph */}
+                            <p className="text-sm md:text-base leading-[1.8] text-neutral-600 max-w-[60ch] font-light">
+                                What once stood as a humble government school has been reimagined
+                                through the vision of the Devatha Krishna Prasad family — rooted
+                                deeply in the values of giving back to society.
+                            </p>
                         </div>
+                    </motion.div>
 
-                        {/* Transformation Block */}
-                        <div className="flex justify-start lg:justify-end">
-                            <motion.div
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true, margin: "-80px" }}
-                                variants={blockVariants("right")}
-                                className="lg:pl-24 w-full lg:w-[48%]"
-                            >
-                                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-                                    <span className="text-[10px] md:text-[11px] font-bold tracking-[0.4em] uppercase" style={{ color: "#C65A3A" }}>
-                                        Chapter II
-                                    </span>
-                                </div>
-                                <h3 
-                                    className="text-2xl md:text-3xl lg:text-[clamp(2rem,5vw,2.75rem)] mb-4 md:mb-6 font-bold"
-                                    style={{ fontFamily: "'Playfair Display', serif", color: "#3E2A23", lineHeight: 1.3 }}
-                                >
-                                    The Transformation
-                                </h3>
-                                <div className="space-y-2 md:space-y-3 max-w-prose">
-                                    {transformationLines.map((line, i) => (
-                                        <motion.p
-                                            key={i}
-                                            variants={lineVariants}
-                                            className="text-[0.935rem] md:text-base lg:text-[clamp(1.1rem,2.5vw,1.35rem)] leading-relaxed md:leading-[1.7]"
-                                            style={{
-                                                fontFamily: "'Inter', sans-serif",
-                                                color: "#3E2A23",
-                                                fontWeight: 500,
-                                            }}
-                                        >
-                                            {line.split(" ").map((word, idx) => {
-                                                const isHighlight = word.includes("infrastructure") ||
-                                                    word.includes("inclusive") ||
-                                                    word.includes("classrooms") ||
-                                                    word.includes("opportunities");
-                                                return (
-                                                    <motion.span
-                                                        key={idx}
-                                                        whileHover={{ color: "#C65A3A", textDecoration: "underline" }}
-                                                        style={{
-                                                            display: "inline-block",
-                                                            marginRight: "0.25em",
-                                                            color: isHighlight ? "#C65A3A" : "inherit",
-                                                            transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
-                                                            cursor: "default"
-                                                        }}
-                                                    >
-                                                        {word}
-                                                    </motion.span>
-                                                );
-                                            })}
-                                        </motion.p>
-                                    ))}
-                                </div>
-                            </motion.div>
+                    {/* CHAPTER 2 */}
+                    <motion.div
+                        variants={fadeUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-50px" }}
+                        className="relative bg-white/80 md:bg-white rounded-2xl p-6 md:p-8 border border-neutral-100 md:border-neutral-200 shadow-[0_8px_32px_rgba(0,0,0,0.04)] md:shadow-none backdrop-blur-sm"
+                    >
+                        <div className="flex flex-col gap-4 text-center md:text-left items-center md:items-start">
+                            {/* Chapter Label */}
+                            <div className="inline-flex items-center gap-4">
+                                <span className="text-[10px] md:text-xs tracking-[0.15em] text-[#7B736C] uppercase font-medium">
+                                    02 / Evolution
+                                </span>
+                            </div>
+
+                            {/* Heading */}
+                            <h3 className="text-[26px] md:text-2xl font-semibold text-[#3E2A23] leading-[1.2] tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+                                The New Chapter
+                            </h3>
+
+                            {/* Paragraphs */}
+                            <p className="text-sm md:text-base leading-[1.8] text-neutral-600 max-w-[60ch] font-light">
+                                Today, it stands renewed with modern <span className="text-[#3E2A23] font-medium">infrastructure</span>, rooted
+                                thinking in values, and updated mediums of instruction.
+                                Equipped with contemporary tools and dedicated faculty, the
+                                institution is committed to delivering quality education.
+                            </p>
+
+                            <p className="text-sm md:text-base leading-[1.8] text-neutral-600 max-w-[60ch] font-light">
+                                This <span className="text-[#C65A3A] font-medium">transformation</span> is built to serve deserving students in and
+                                around Rampura Village — creating <span className="text-[#3E2A23] font-medium">opportunities</span>, not just classrooms.
+                            </p>
                         </div>
-                    </div>
+                    </motion.div>
+
                 </div>
             </div>
         </section>
