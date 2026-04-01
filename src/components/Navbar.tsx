@@ -4,21 +4,27 @@ import { useState, useEffect, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const links = [
-    { label: "Our Story", href: "#story" },
-    { label: "Architecture", href: "#sustainability" },
-    { label: "Academics", href: "#academics" },
-    { label: "Community", href: "#community" },
-    { label: "Admissions", href: "#admissions" },
+    { label: "Our Story", href: "/#story" },
+    { label: "Architecture", href: "/#sustainability" },
+    { label: "Academics", href: "/#academics" },
+    { label: "Community", href: "/#community" },
+    { label: "Admissions", href: "/#admissions" },
 ];
 
 export default function Navbar() {
-    const [scrolled, setScrolled] = useState(false);
+    const pathname = usePathname();
+    const isHome = pathname === "/";
+    const [isScrolled, setIsScrolled] = useState(false);
     const [open, setOpen] = useState(false);
 
+    const scrolled = isScrolled || !isHome;
+
     const onScroll = useCallback(() => {
-        setScrolled(window.scrollY > 60);
+        setIsScrolled(window.scrollY > 60);
     }, []);
 
     useEffect(() => {
@@ -62,8 +68,8 @@ export default function Navbar() {
                 }}
             >
                 {/* Logo */}
-                <a
-                    href="#"
+                <Link
+                    href="/"
                     style={{
                         display: "flex",
                         alignItems: "center",
@@ -122,12 +128,12 @@ export default function Navbar() {
                             Rampura - 571427
                         </span>
                     </div>
-                </a>
+                </Link>
 
                 {/* Desktop links */}
                 <div className="hidden md:flex" style={{ alignItems: "center", gap: 36 }}>
                     {links.map((link) => (
-                        <a
+                        <Link
                             key={link.label}
                             href={link.href}
                             style={{
@@ -155,7 +161,7 @@ export default function Navbar() {
                             }}
                         >
                             {link.label}
-                        </a>
+                        </Link>
                     ))}
                 </div>
 
@@ -198,14 +204,16 @@ export default function Navbar() {
                     >
                         <div style={{ padding: "16px clamp(20px, 4vw, 48px) 28px" }}>
                             {links.map((link, i) => (
-                                <motion.a
+                                <motion.div
                                     key={link.label}
-                                    href={link.href}
-                                    onClick={() => setOpen(false)}
                                     initial={{ opacity: 0, x: -12 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: i * 0.05, duration: 0.3 }}
-                                    style={{
+                                >
+                                    <Link
+                                        href={link.href}
+                                        onClick={() => setOpen(false)}
+                                        style={{
                                         display: "block",
                                         fontFamily: "'Inter', sans-serif",
                                         fontWeight: 500,
@@ -219,12 +227,13 @@ export default function Navbar() {
                                     onMouseEnter={(e) => {
                                         e.currentTarget.style.color = "#FFFFFF";
                                     }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.color = "rgba(255,255,255,0.7)";
-                                    }}
-                                >
-                                    {link.label}
-                                </motion.a>
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.color = "rgba(255,255,255,0.7)";
+                                        }}
+                                    >
+                                        {link.label}
+                                    </Link>
+                                </motion.div>
                             ))}
                         </div>
                     </motion.div>
