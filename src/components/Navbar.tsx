@@ -109,7 +109,7 @@ export default function Navbar() {
                                 letterSpacing: "0.02em",
                             }}
                         >
-                            DEVATHA KPS <span className="hidden sm:inline">Government Primary School</span>
+                            DEVATHA KPS Government Primary School
                         </span>
                         <span
                             style={{
